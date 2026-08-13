@@ -210,7 +210,7 @@ async function fetchData() {
 // ============================================================
 function updateStats(jadwal, rekap) {
     const totalP = jadwal.length;
-    const totalJ = rekap.reduce((s, r) => s + (parseFloat(String(r.TOTAL_JAM).replace(/[^0-9.]/g, '')) || 0), 0);
+    const totalJ = rekap.reduce((s, r) => s + (parseFloat(String(r.TOTAL JAM).replace(/[^0-9.]/g, '')) || 0), 0);
     const totalS = rekap.reduce((s, r) => s + (parseFloat(String(r.SUDAH).replace(/[^0-9.]/g, '')) || 0), 0);
     const totalB = rekap.reduce((s, r) => s + (parseFloat(String(r.BELUM).replace(/[^0-9.]/g, '')) || 0), 0);
 
@@ -370,7 +370,7 @@ function renderRekap(rekap) {
     let html = '';
     for (const r of rekap) {
         const p = r.PERIODE || 'Tanpa Periode';
-        const total = parseFloat(String(r.TOTAL_JAM).replace(/[^0-9.]/g, '')) || 0;
+        const total = parseFloat(String(r.TOTAL JAM).replace(/[^0-9.]/g, '')) || 0;
         const reguler = parseFloat(String(r.REGULER).replace(/[^0-9.]/g, '')) || 0;
         const club = parseFloat(String(r.CLUB).replace(/[^0-9.]/g, '')) || 0;
         const sudah = parseFloat(String(r.SUDAH).replace(/[^0-9.]/g, '')) || 0;

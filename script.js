@@ -385,8 +385,8 @@ function renderRekap(rekap) {
                         <div class="rekap-detail">
                             <span>Reguler ${reguler}</span>
                             <span>Club ${club}</span>
-                            <span class="status-badge green">🟢 ${sudah}</span>
-                            <span class="status-badge red">🔴 ${belum}</span>
+                            <span class="status-badge success">Success ${sudah}</span>
+                            <span class="status-badge pending">Pending ${belum}</span>
                         </div>
                     </div>
                 `;

@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes" />
+    <title>Rekap Mengajar — SIAQ</title>
+
+    <!-- Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet" />
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest">
+    </script>
+    <!-- CSS -->
+    <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+    <!-- ===== LOADING SCREEN ===== -->
+    <div id="loadingScreen">
+        <div class="logo-icon">
+            <i data-lucide="sparkles"></i>
+        </div>
+        <h1>Rekap Mengajar</h1>
+        <div class="sub">Sekolah Islam Akhlaqul Quran</div>
+        <div class="name">Ahmad Zaman Huri</div>
+        <div class="tahun-ajaran">2026 / 2027</div>
+        <div class="loader-wrapper">
+            <div class="loader-bar">
+                <div class="fill"></div>
+            </div>
+            <div class="loader-label">
+                <span>Loading</span>
+                <span class="percent">100%</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- ===== DASHBOARD ===== -->
+    <div class="container" id="dashboard">
+
+        <!-- HEADER -->
+        <div class="header" id="headerHome">
+            <div class="header-top">
+                <div>
+                    <h1>
+                        <span class="shimmer-text">Rekap Mengajar</span>
+                        <span class="badge">SIAQ</span>
+                    </h1>
+                    <div class="nama-guru">
+                        <i data-lucide="user"></i> Ahmad Zaman Huri
+                    </div>
+                </div>
+                <!-- Profile Avatar - klik untuk buka profil -->
+                <div class="profile-avatar" id="profileTrigger">
+                    <img src="assets/imgprofile.png" alt="Ahmad Zaman Huri" />
+                </div>
+            </div>
+        </div>
+
+        <!-- STATISTIK -->
+        <div class="stats-grid" id="statsGrid">
+            <div class="stat-card blue">
+                <div class="stat-icon"><i data-lucide="calendar"></i></div>
+                <div class="stat-number" id="statPertemuan">-</div>
+                <div class="stat-label">Pertemuan</div>
+            </div>
+            <div class="stat-card purple">
+                <div class="stat-icon"><i data-lucide="clock"></i></div>
+                <div class="stat-number" id="statJam">-</div>
+                <div class="stat-label">Total Jam</div>
+            </div>
+            <div class="stat-card green">
+                <div class="stat-icon"><i data-lucide="check-circle"></i></div>
+                <div class="stat-number" id="statSudah">-</div>
+                <div class="stat-label">Sudah Diproses</div>
+            </div>
+            <div class="stat-card red">
+                <div class="stat-icon"><i data-lucide="clock"></i></div>
+                <div class="stat-number" id="statBelum">-</div>
+                <div class="stat-label">Belum Diproses</div>
+            </div>
+        </div>
+
+        <!-- NAV TABS -->
+        <div class="nav-tabs" id="navTabs">
+            <button class="active" data-tab="semua"><i data-lucide="grid"></i> Semua</button>
+            <button data-tab="reguler"><i data-lucide="clock"></i> Reguler</button>
+            <button data-tab="club"><i data-lucide="users"></i> Club</button>
+            <button data-tab="rekap"><i data-lucide="bar-chart-2"></i> Rekap</button>
+        </div>
+
+        <!-- CONTENT -->
+        <div id="contentArea">
+
+            <!-- SEMUA -->
+            <div id="semuaContent">
+                <div class="filter-section">
+                    <label><i data-lucide="calendar"></i> Pilih Bulan</label>
+                    <select class="filter-select" id="filterSemua">
+                        <option value="">— Pilih Bulan —</option>
+                    </select>
+                    <button class="btn-reset" id="resetSemua"><i data-lucide="x"></i> Reset</button>
+                </div>
+                <div id="semuaTableWrap" class="table-wrap hidden-table">
+                    <div class="table-scroll">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Tanggal</th>
+                                    <th>Hari</th>
+                                    <th>Kelas</th>
+                                    <th>Jam</th>
+                                    <th style="text-align:center;width:40px;"></th>
+                                </tr>
+                            </thead>
+                            <tbody id="tableSemua">
+                                <tr>
+                                    <td colspan="5" class="loading"><div class="spinner"></div>Memuat data …</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div id="emptySemua" class="empty-state">
+                    <i data-lucide="calendar"></i>
+                    <div class="empty-title">Pilih Bulan</div>
+                    <div class="empty-desc">Silakan pilih bulan dari dropdown untuk melihat jadwal.</div>
+                </div>
+            </div>
+
+            <!-- REGULER -->
+            <div id="regulerContent" style="display:none;">
+                <div class="filter-section">
+                    <label><i data-lucide="calendar"></i> Pilih Bulan</label>
+                    <select class="filter-select" id="filterReguler">
+                        <option value="">— Pilih Bulan —</option>
+                    </select>
+                    <button class="btn-reset" id="resetReguler"><i data-lucide="x"></i> Reset</button>
+                </div>
+                <div id="regulerTableWrap" class="table-wrap hidden-table">
+                    <div class="table-scroll">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Tanggal</th>
+                                    <th>Hari</th>
+                                    <th>Kelas</th>
+                                    <th>Jam</th>
+                                    <th style="text-align:center;width:40px;"></th>
+                                </tr>
+                            </thead>
+                            <tbody id="tableReguler">
+                                <tr>
+                                    <td colspan="5" class="loading"><div class="spinner"></div>Memuat data …</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div id="emptyReguler" class="empty-state">
+                    <i data-lucide="clock"></i>
+                    <div class="empty-title">Pilih Bulan</div>
+                    <div class="empty-desc">Silakan pilih bulan dari dropdown untuk melihat jadwal reguler.</div>
+                </div>
+            </div>
+
+            <!-- CLUB -->
+            <div id="clubContent" style="display:none;">
+                <div class="filter-section">
+                    <label><i data-lucide="calendar"></i> Pilih Bulan</label>
+                    <select class="filter-select" id="filterClub">
+                        <option value="">— Pilih Bulan —</option>
+                    </select>
+                    <button class="btn-reset" id="resetClub"><i data-lucide="x"></i> Reset</button>
+                </div>
+                <div id="clubTableWrap" class="table-wrap hidden-table">
+                    <div class="table-scroll">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Tanggal</th>
+                                    <th>Hari</th>
+                                    <th>Kelas</th>
+                                    <th>Jam</th>
+                                    <th style="text-align:center;width:40px;"></th>
+                                </tr>
+                            </thead>
+                            <tbody id="tableClub">
+                                <tr>
+                                    <td colspan="5" class="loading"><div class="spinner"></div>Memuat data …</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div id="emptyClub" class="empty-state">
+                    <i data-lucide="users"></i>
+                    <div class="empty-title">Pilih Bulan</div>
+                    <div class="empty-desc">Silakan pilih bulan dari dropdown untuk melihat jadwal club.</div>
+                </div>
+            </div>
+
+            <!-- REKAP -->
+            <div id="rekapContent" style="display:none;">
+                <div class="rekap-list" id="rekapList"></div>
+            </div>
+        </div>
+
+        <div class="footer-credit">created by Azhibnmjkfr</div>
+    </div>
+
+    <!-- ===== MODAL DETAIL JADWAL ===== -->
+    <div class="modal-overlay" id="modalOverlay">
+        <div class="modal-box" id="modalBox">
+            <button class="modal-close" id="modalClose">
+                <i data-lucide="x"></i>
+            </button>
+            <div class="modal-title" id="modalTitle">
+                <span class="info-icon"><i data-lucide="info"></i></span>
+                Detail
+            </div>
+            <div id="modalBody">
+                <div class="modal-item"><span class="modal-label">Tanggal</span><span class="modal-value" id="modalTanggal">-</span></div>
+                <div class="modal-item"><span class="modal-label">Hari</span><span class="modal-value" id="modalHari">-</span></div>
+                <div class="modal-item"><span class="modal-label">Kelas</span><span class="modal-value" id="modalKelas">-</span></div>
+                <div class="modal-item"><span class="modal-label">Jam</span><span class="modal-value" id="modalJam">-</span></div>
+                <div class="modal-item"><span class="modal-label">Materi</span><span class="modal-value" id="modalMateri">-</span></div>
+                <div class="modal-item"><span class="modal-label">Keterangan</span><span class="modal-value" id="modalKeterangan">-</span></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ===== MODAL PROFIL ===== -->
+    <div class="profile-modal-overlay" id="profileModal">
+        <div class="profile-modal-box">
+            <button class="profile-modal-close" id="profileModalClose">
+                <i data-lucide="x"></i>
+            </button>
+            <div class="profile-modal-content">
+                <div class="profile-modal-avatar">
+                    <img src="assets/imgprofile.png" alt="Ahmad Zaman Huri" />
+                </div>
+                <h2 class="profile-modal-name">Ahmad Zaman Huri</h2>
+                <p class="profile-modal-role">Guru Bahasa Inggris</p>
+                <p class="profile-modal-school">Sekolah Islam Akhlaqul Quran</p>
+
+                <div class="profile-modal-divider"></div>
+
+                <div class="profile-modal-info">
+                    <div class="profile-modal-item">
+                        <i data-lucide="mail"></i>
+                        <span>ahmadzamanhuri.jakfar@gmail.com</span>
+                    </div>
+                    <div class="profile-modal-item">
+                        <i data-lucide="phone"></i>
+                        <span>+62 822-4607-7303</span>
+                    </div>
+                    <div class="profile-modal-item">
+                        <i data-lucide="map-pin"></i>
+                        <span>Keutapang, Aceh Besar</span>
+                    </div>
+                </div>
+
+                <div class="profile-modal-divider"></div>
+
+                <div class="profile-modal-bio">
+                    <p>Mengajar bukan hanya tentang memberi tahu,<br />Tapi tentang menumbuhkan rasa ingin tahu.</p>
+                </div>
+
+                <a href="https://wa.me/6282246077307" class="profile-modal-wa" target="_blank">
+                    <i data-lucide="message-circle"></i> Hubungi via WhatsApp
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- GO TOP -->
+    <button class="go-top" id="goTop"><i data-lucide="chevron-up"></i></button>
+
+    <!-- JS -->
+    <script src="script.js">
+    </script>
+
+</body>
+</html>

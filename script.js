@@ -206,13 +206,14 @@ async function fetchData() {
 }
 
 // ============================================================
-// UPDATE STATISTIK
+// UPDATE STATISTIK — SEMUA DARI REKAP
 // ============================================================
 function updateStats(jadwal, rekap) {
-    const totalP = jadwal.length;
-    const totalJ = rekap.reduce((s, r) => s + (parseFloat(String(r.TOTAL JAM).replace(/[^0-9.]/g, '')) || 0), 0);
-    const totalS = rekap.reduce((s, r) => s + (parseFloat(String(r.SUDAH).replace(/[^0-9.]/g, '')) || 0), 0);
-    const totalB = rekap.reduce((s, r) => s + (parseFloat(String(r.BELUM).replace(/[^0-9.]/g, '')) || 0), 0);
+    // Semua angka diambil dari tab REKAP agar konsisten
+    const totalP = rekap.reduce((s, r) => s + (parseFloat(String(r['TOTAL JAM']).replace(/[^0-9.]/g, '')) || 0), 0);
+    const totalJ = rekap.reduce((s, r) => s + (parseFloat(String(r['TOTAL JAM']).replace(/[^0-9.]/g, '')) || 0), 0);
+    const totalS = rekap.reduce((s, r) => s + (parseFloat(String(r['SUDAH']).replace(/[^0-9.]/g, '')) || 0), 0);
+    const totalB = rekap.reduce((s, r) => s + (parseFloat(String(r['BELUM']).replace(/[^0-9.]/g, '')) || 0), 0);
 
     statPertemuan.textContent = totalP;
     statJam.textContent = totalJ;
@@ -370,11 +371,11 @@ function renderRekap(rekap) {
     let html = '';
     for (const r of rekap) {
         const p = r.PERIODE || 'Tanpa Periode';
-        const total = parseFloat(String(r.TOTAL JAM).replace(/[^0-9.]/g, '')) || 0;
-        const reguler = parseFloat(String(r.REGULER).replace(/[^0-9.]/g, '')) || 0;
-        const club = parseFloat(String(r.CLUB).replace(/[^0-9.]/g, '')) || 0;
-        const sudah = parseFloat(String(r.SUDAH).replace(/[^0-9.]/g, '')) || 0;
-        const belum = parseFloat(String(r.BELUM).replace(/[^0-9.]/g, '')) || 0;
+        const total = parseFloat(String(r['TOTAL JAM']).replace(/[^0-9.]/g, '')) || 0;
+        const reguler = parseFloat(String(r['REGULER']).replace(/[^0-9.]/g, '')) || 0;
+        const club = parseFloat(String(r['CLUB']).replace(/[^0-9.]/g, '')) || 0;
+        const sudah = parseFloat(String(r['SUDAH']).replace(/[^0-9.]/g, '')) || 0;
+        const belum = parseFloat(String(r['BELUM']).replace(/[^0-9.]/g, '')) || 0;
 
         html += `
                     <div class="rekap-card">

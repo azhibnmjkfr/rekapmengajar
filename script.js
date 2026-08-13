@@ -206,11 +206,10 @@ async function fetchData() {
 }
 
 // ============================================================
-// UPDATE STATISTIK — SEMUA DARI REKAP
+// UPDATE STATISTIK
 // ============================================================
 function updateStats(jadwal, rekap) {
-    // Semua angka diambil dari tab REKAP agar konsisten
-    const totalP = rekap.reduce((s, r) => s + (parseFloat(String(r.TOTAL_JAM).replace(/[^0-9.]/g, '')) || 0), 0);
+    const totalP = jadwal.length;
     const totalJ = rekap.reduce((s, r) => s + (parseFloat(String(r.TOTAL_JAM).replace(/[^0-9.]/g, '')) || 0), 0);
     const totalS = rekap.reduce((s, r) => s + (parseFloat(String(r.SUDAH).replace(/[^0-9.]/g, '')) || 0), 0);
     const totalB = rekap.reduce((s, r) => s + (parseFloat(String(r.BELUM).replace(/[^0-9.]/g, '')) || 0), 0);

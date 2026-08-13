@@ -364,35 +364,59 @@ function resetFilter(tab) {
 }
 
 // ============================================================
-// RENDER REKAP
+// RENDER REKAP — VERSI TABEL STATIS
 // ============================================================
 function renderRekap(rekap) {
-    let html = '';
+    if (!rekap || !rekap.length) {
+        rekapList.innerHTML = '<p style="text-align:center;color:#6f84a0;padding:30px 0;">Belum ada data rekap</p>';
+        return;
+    }
+
+    let html = `
+        <div class="table-wrap">
+            <div class="table-scroll">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Periode</th>
+                            <th>Total Jam</th>
+                            <th>Reguler</th>
+                            <th>Club</th>
+                            <th>Success</th>
+                            <th>Pending</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+    `;
+
     for (const r of rekap) {
         const p = r.PERIODE || 'Tanpa Periode';
         const total = parseFloat(String(r['TOTAL JAM']).replace(/[^0-9.]/g, '')) || 0;
         const reguler = parseFloat(String(r['REGULER']).replace(/[^0-9.]/g, '')) || 0;
         const club = parseFloat(String(r['CLUB']).replace(/[^0-9.]/g, '')) || 0;
-        const sudah = parseFloat(String(r['SUDAH']).replace(/[^0-9.]/g, '')) || 0;
-        const belum = parseFloat(String(r['BELUM']).replace(/[^0-9.]/g, '')) || 0;
+        const success = parseFloat(String(r['SUDAH']).replace(/[^0-9.]/g, '')) || 0;
+        const pending = parseFloat(String(r['BELUM']).replace(/[^0-9.]/g, '')) || 0;
 
         html += `
-                    <div class="rekap-card">
-                        <div class="rekap-left">
-                            <span class="rekap-name">${p}</span>
-                            <span class="rekap-total">${total} <small>jam</small></span>
-                        </div>
-                        <div class="rekap-detail">
-                            <span>Reguler ${reguler}</span>
-                            <span>Club ${club}</span>
-                            <span class="status-badge success">Success ${sudah}</span>
-                            <span class="status-badge pending">Pending ${belum}</span>
-                        </div>
-                    </div>
-                `;
+            <tr>
+                <td><strong>${p}</strong></td>
+                <td>${total}</td>
+                <td>${reguler}</td>
+                <td>${club}</td>
+                <td><span class="status-badge success">${success}</span></td>
+                <td><span class="status-badge pending">${pending}</span></td>
+            </tr>
+        `;
     }
-    rekapList.innerHTML = html ||
-        '<p style="text-align:center;color:#6f84a0;padding:30px 0;">Belum ada data rekap</p>';
+
+    html += `
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    `;
+
+    rekapList.innerHTML = html;
 }
 
 // ============================================================

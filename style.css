@@ -990,8 +990,20 @@ tr:last-child td {
 
 .modal-item {
     display: flex;
+    justify-content: space-between;
     padding: 8px 0;
     border-bottom: 1px solid #f1f5f9;
+}
+
+.modal-item .modal-label {
+    font-weight: 500;
+    color: #62748e;
+}
+
+.modal-item .modal-value {
+    font-weight: 600;
+    color: #0b162b;
+    text-align: right;
 }
 
 .modal-item:last-child {

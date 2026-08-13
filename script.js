@@ -208,9 +208,9 @@ async function fetchData() {
 // ============================================================
 // UPDATE STATISTIK
 // ============================================================
-function updateStats(jadwal, rekap) {
-    const totalP = jadwal.length;
-    const totalJ = jadwal.reduce((s, r) => s + (parseFloat(String(r.TOTAL_JAM).replace(/[^0-9.]/g, '')) || 0), 0);
+function updateStats(rekap) {
+    const totalP = rekap.reduce((s, r) => s + (parseFloat(String(r.TOTAL_JAM).replace(/[^0-9.]/g, '')) || 0), 0);
+    const totalJ = rekap.reduce((s, r) => s + (parseFloat(String(r.TOTAL_JAM).replace(/[^0-9.]/g, '')) || 0), 0);
     const totalS = rekap.reduce((s, r) => s + (parseFloat(String(r.SUDAH).replace(/[^0-9.]/g, '')) || 0), 0);
     const totalB = rekap.reduce((s, r) => s + (parseFloat(String(r.BELUM).replace(/[^0-9.]/g, '')) || 0), 0);
 

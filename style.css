@@ -1,6 +1,5 @@
 /* ============================================================
    style.css — Rekap Mengajar SIAQ
-   Versi Premium dengan Loading Screen Mewah
    ============================================================ */
 
 /* ===== RESET & BASE ===== */
@@ -28,7 +27,7 @@ body {
 }
 
 /* ============================================================
-   LOADING SCREEN — PREMIUM VERSION
+   LOADING SCREEN
    ============================================================ */
 #loadingScreen {
     position: fixed;
@@ -51,7 +50,6 @@ body {
     pointer-events: none;
 }
 
-/* Background ornamen */
 #loadingScreen::before {
     content: '';
     position: absolute;
@@ -70,7 +68,6 @@ body {
     100% { transform: translate(2%, 2%) rotate(2deg); }
 }
 
-/* Logo Icon — Glow + Pulse */
 #loadingScreen .logo-icon {
     width: 88px;
     height: 88px;
@@ -104,7 +101,6 @@ body {
     50% { transform: translateY(-4px); }
 }
 
-/* Circle ring di belakang icon */
 #loadingScreen .logo-icon::after {
     content: '';
     position: absolute;
@@ -119,7 +115,6 @@ body {
     100% { transform: rotate(360deg); }
 }
 
-/* Teks Judul — Shimmer Premium */
 #loadingScreen h1 {
     font-size: 34px;
     font-weight: 700;
@@ -167,7 +162,6 @@ body {
     background: rgba(255, 255, 255, 0.02);
 }
 
-/* Loader Bar — Premium */
 #loadingScreen .loader-wrapper {
     margin-top: 36px;
     width: 240px;
@@ -203,7 +197,6 @@ body {
     100% { background-position: 200% 0%; }
 }
 
-/* Loader label */
 #loadingScreen .loader-label {
     display: flex;
     justify-content: space-between;
@@ -219,7 +212,6 @@ body {
     color: #b3d48a;
 }
 
-/* Glow dot di ujung loader */
 #loadingScreen .loader-bar::after {
     content: '';
     position: absolute;
@@ -241,7 +233,7 @@ body {
 }
 
 /* ============================================================
-   DASHBOARD — Smooth Transition
+   DASHBOARD
    ============================================================ */
 #dashboard {
     opacity: 0;
@@ -256,7 +248,7 @@ body {
 }
 
 /* ============================================================
-   HEADER — Premium dengan Shimmer
+   HEADER
    ============================================================ */
 .header {
     padding: 24px 24px 20px;
@@ -343,7 +335,7 @@ body {
 }
 
 /* ============================================================
-   PROFILE AVATAR (Header)
+   PROFILE AVATAR
    ============================================================ */
 .profile-avatar {
     width: 48px;
@@ -619,7 +611,7 @@ body {
 .stat-card.purple .stat-number { color: #a78bfa; }
 
 /* ============================================================
-   NAV TABS — Hijau Kekuningan (Sage / Olive)
+   NAV TABS
    ============================================================ */
 .nav-tabs {
     display: flex;
@@ -1029,7 +1021,7 @@ tr:last-child td {
 }
 
 /* ============================================================
-   REKAP LIST
+   REKAP LIST — TAMPILAN TABEL STATIS
    ============================================================ */
 .rekap-list {
     display: flex;
@@ -1037,64 +1029,18 @@ tr:last-child td {
     gap: 10px;
 }
 
-.rekap-card {
-    background: rgba(255, 255, 255, 0.85);
-    backdrop-filter: blur(4px);
-    -webkit-backdrop-filter: blur(4px);
-    border: 1px solid rgba(255, 255, 255, 0.6);
-    border-radius: 16px;
-    padding: 14px 18px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.02);
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    flex-wrap: wrap;
-    gap: 8px 12px;
-}
-
-.rekap-card .rekap-left {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    flex: 1;
-    min-width: 120px;
-}
-
-.rekap-card .rekap-name {
-    font-size: 15px;
-    font-weight: 600;
-    color: #0b162b;
-}
-
-.rekap-card .rekap-total {
-    font-size: 20px;
-    font-weight: 700;
-    color: #0b162b;
-}
-
-.rekap-card .rekap-total small {
-    font-size: 12px;
-    font-weight: 400;
-    color: #62748e;
-}
-
-.rekap-card .rekap-detail {
-    font-size: 12px;
-    color: #4b5f7a;
-    display: flex;
-    gap: 14px;
-    align-items: center;
-    flex-wrap: wrap;
-}
-
+/* ============================================================
+   STATUS BADGE
+   ============================================================ */
 .status-badge {
     display: inline-flex;
     align-items: center;
-    gap: 4px;
-    padding: 1px 8px 1px 4px;
+    justify-content: center;
+    padding: 2px 12px;
     border-radius: 40px;
-    font-size: 11px;
-    font-weight: 500;
+    font-size: 12px;
+    font-weight: 600;
+    min-width: 60px;
 }
 
 .status-badge.success {
@@ -1205,10 +1151,6 @@ tr:last-child td {
     .nav-tabs button { font-size: 12px; padding: 6px 12px; min-width: 50px; }
     .filter-select { font-size: 13px; padding: 8px 14px; min-width: 130px; max-width: 100%; }
     .btn-reset { padding: 8px 14px; font-size: 12px; }
-    .rekap-card { padding: 12px 14px; }
-    .rekap-card .rekap-name { font-size: 14px; }
-    .rekap-card .rekap-total { font-size: 18px; }
-    .rekap-card .rekap-detail { font-size: 11px; gap: 8px; }
     table { font-size: 12.5px; min-width: 350px; }
     th { padding: 10px 8px; font-size: 9.5px; }
     td { padding: 9px 8px; }
@@ -1223,6 +1165,7 @@ tr:last-child td {
     .go-top { bottom: 18px; right: 18px; width: 42px; height: 42px; }
     #loadingScreen .logo-icon { width: 72px; height: 72px; }
     #loadingScreen .logo-icon i { width: 36px; height: 36px; }
+    .status-badge { font-size: 11px; padding: 2px 10px; min-width: 50px; }
 }
 
 @media (max-width: 400px) {
@@ -1233,10 +1176,6 @@ tr:last-child td {
     .stat-card .stat-number { font-size: 18px; }
     .filter-select { font-size: 12px; padding: 6px 12px; min-width: 100px; }
     .btn-reset { padding: 6px 12px; font-size: 11px; }
-    .rekap-card { padding: 10px 12px; }
-    .rekap-card .rekap-name { font-size: 13px; }
-    .rekap-card .rekap-total { font-size: 16px; }
-    .rekap-card .rekap-detail { font-size: 10px; gap: 6px; }
     table { font-size: 11px; min-width: 300px; }
     th, td { padding: 7px 6px; }
     .modal-box { padding: 18px 14px 14px; }
@@ -1253,6 +1192,7 @@ tr:last-child td {
     #loadingScreen .loader-wrapper { width: 150px; }
     #loadingScreen .logo-icon { width: 64px; height: 64px; }
     #loadingScreen .logo-icon i { width: 32px; height: 32px; }
+    .status-badge { font-size: 10px; padding: 2px 8px; min-width: 40px; }
 }
 
 @media (min-width: 1024px) {
@@ -1263,9 +1203,6 @@ tr:last-child td {
     .stat-card .stat-number { font-size: 34px; }
     .filter-select { font-size: 15px; padding: 12px 20px; min-width: 200px; }
     .btn-reset { padding: 12px 22px; font-size: 14px; }
-    .rekap-card { padding: 16px 24px; }
-    .rekap-card .rekap-name { font-size: 17px; }
-    .rekap-card .rekap-total { font-size: 24px; }
     table { font-size: 15px; min-width: 500px; }
     th { padding: 18px 18px; font-size: 12px; }
     td { padding: 16px 18px; }
@@ -1276,4 +1213,5 @@ tr:last-child td {
     #loadingScreen h1 { font-size: 40px; }
     #loadingScreen .logo-icon { width: 100px; height: 100px; }
     #loadingScreen .logo-icon i { width: 48px; height: 48px; }
+    .status-badge { font-size: 13px; padding: 4px 16px; min-width: 70px; }
 }

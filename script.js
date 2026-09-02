@@ -143,10 +143,12 @@ document.addEventListener('keydown', (e) => {
 // ============================================================
 function openModalRekap(data) {
     const periode = data.PERIODE || '-';
+    
     const regSukses = parseFloat(String(data['REGULER SUCCESS']).replace(/[^0-9.]/g, '')) || 0;
     const regPending = parseFloat(String(data['REGULER PENDING']).replace(/[^0-9.]/g, '')) || 0;
     const clubSukses = parseFloat(String(data['CLUB SUCCESS']).replace(/[^0-9.]/g, '')) || 0;
     const clubPending = parseFloat(String(data['CLUB PENDING']).replace(/[^0-9.]/g, '')) || 0;
+    
     const feeSukses = parseFloat(String(data['FEE SUCCESS']).replace(/[^0-9.]/g, '')) || 0;
     const feePending = parseFloat(String(data['FEE PENDING']).replace(/[^0-9.]/g, '')) || 0;
 
@@ -154,9 +156,6 @@ function openModalRekap(data) {
     const regPendingFee = regPending * 30000;
     const clubSuksesFee = clubSukses * 60000;
     const clubPendingFee = clubPending * 60000;
-
-    const totalSukses = feeSukses;
-    const totalPending = feePending;
 
     const formatRp = (num) => {
         return 'Rp' + num.toLocaleString('id-ID');
@@ -171,7 +170,7 @@ function openModalRekap(data) {
     modalRekapClubSukses.textContent = clubSukses + ' Jam';
     modalRekapClubSuksesFee.textContent = formatRp(clubSuksesFee);
 
-    modalRekapTotalSukses.textContent = formatRp(totalSukses);
+    modalRekapTotalSukses.textContent = formatRp(feeSukses);
 
     modalRekapRegPending.textContent = regPending + ' Jam';
     modalRekapRegPendingFee.textContent = formatRp(regPendingFee);
@@ -179,7 +178,7 @@ function openModalRekap(data) {
     modalRekapClubPending.textContent = clubPending + ' Jam';
     modalRekapClubPendingFee.textContent = formatRp(clubPendingFee);
 
-    modalRekapTotalPending.textContent = formatRp(totalPending);
+    modalRekapTotalPending.textContent = formatRp(feePending);
 
     modalRekapOverlay.classList.add('open');
     document.body.style.overflow = 'hidden';

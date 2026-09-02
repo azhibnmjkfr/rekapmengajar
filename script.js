@@ -85,6 +85,22 @@ const modalJam = $('modalJam');
 const modalMateri = $('modalMateri');
 const modalKeterangan = $('modalKeterangan');
 
+// Modal Rekap
+const modalRekapOverlay = $('modalRekapOverlay');
+const modalRekapClose = $('modalRekapClose');
+const modalRekapTitle = $('modalRekapTitle');
+const modalRekapPeriode = $('modalRekapPeriode');
+const modalRekapRegSukses = $('modalRekapRegSukses');
+const modalRekapRegSuksesFee = $('modalRekapRegSuksesFee');
+const modalRekapClubSukses = $('modalRekapClubSukses');
+const modalRekapClubSuksesFee = $('modalRekapClubSuksesFee');
+const modalRekapTotalSukses = $('modalRekapTotalSukses');
+const modalRekapRegPending = $('modalRekapRegPending');
+const modalRekapRegPendingFee = $('modalRekapRegPendingFee');
+const modalRekapClubPending = $('modalRekapClubPending');
+const modalRekapClubPendingFee = $('modalRekapClubPendingFee');
+const modalRekapTotalPending = $('modalRekapTotalPending');
+
 // Profile Modal
 const profileTrigger = $('profileTrigger');
 const profileModal = $('profileModal');
@@ -120,6 +136,69 @@ modalOverlay.addEventListener('click', (e) => {
 
 document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape') closeModal();
+});
+
+// ============================================================
+// MODAL REKAP
+// ============================================================
+function openModalRekap(data) {
+    const periode = data.PERIODE || '-';
+    const regSukses = parseFloat(String(data['REGULER SUCCESS']).replace(/[^0-9.]/g, '')) || 0;
+    const regPending = parseFloat(String(data['REGULER PENDING']).replace(/[^0-9.]/g, '')) || 0;
+    const clubSukses = parseFloat(String(data['CLUB SUCCESS']).replace(/[^0-9.]/g, '')) || 0;
+    const clubPending = parseFloat(String(data['CLUB PENDING']).replace(/[^0-9.]/g, '')) || 0;
+    const feeSukses = parseFloat(String(data['FEE SUCCESS']).replace(/[^0-9.]/g, '')) || 0;
+    const feePending = parseFloat(String(data['FEE PENDING']).replace(/[^0-9.]/g, '')) || 0;
+
+    const regSuksesFee = regSukses * 30000;
+    const regPendingFee = regPending * 30000;
+    const clubSuksesFee = clubSukses * 60000;
+    const clubPendingFee = clubPending * 60000;
+
+    const totalSukses = feeSukses;
+    const totalPending = feePending;
+
+    const formatRp = (num) => {
+        return 'Rp' + num.toLocaleString('id-ID');
+    };
+
+    modalRekapTitle.innerHTML = `<span class="info-icon"><i data-lucide="bar-chart-2"></i></span> Detail Rekap — ${periode}`;
+    modalRekapPeriode.textContent = periode;
+
+    modalRekapRegSukses.textContent = regSukses + ' Jam';
+    modalRekapRegSuksesFee.textContent = formatRp(regSuksesFee);
+
+    modalRekapClubSukses.textContent = clubSukses + ' Jam';
+    modalRekapClubSuksesFee.textContent = formatRp(clubSuksesFee);
+
+    modalRekapTotalSukses.textContent = formatRp(totalSukses);
+
+    modalRekapRegPending.textContent = regPending + ' Jam';
+    modalRekapRegPendingFee.textContent = formatRp(regPendingFee);
+
+    modalRekapClubPending.textContent = clubPending + ' Jam';
+    modalRekapClubPendingFee.textContent = formatRp(clubPendingFee);
+
+    modalRekapTotalPending.textContent = formatRp(totalPending);
+
+    modalRekapOverlay.classList.add('open');
+    document.body.style.overflow = 'hidden';
+    if (typeof lucide !== 'undefined') lucide.createIcons();
+}
+
+function closeModalRekap() {
+    modalRekapOverlay.classList.remove('open');
+    document.body.style.overflow = '';
+}
+
+modalRekapClose.addEventListener('click', closeModalRekap);
+
+modalRekapOverlay.addEventListener('click', (e) => {
+    if (e.target === modalRekapOverlay) closeModalRekap();
+});
+
+document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') closeModalRekap();
 });
 
 // ============================================================
@@ -364,7 +443,7 @@ function resetFilter(tab) {
 }
 
 // ============================================================
-// RENDER REKAP — VERSI TABEL STATIS
+// RENDER REKAP — DENGAN ARROW & CLICK
 // ============================================================
 function renderRekap(rekap) {
     if (!rekap || !rekap.length) {
@@ -384,6 +463,7 @@ function renderRekap(rekap) {
                             <th>Club</th>
                             <th>Success</th>
                             <th>Pending</th>
+                            <th style="text-align:center;width:40px;"></th>
                         </tr>
                     </thead>
                     <tbody>
@@ -397,14 +477,17 @@ function renderRekap(rekap) {
         const success = parseFloat(String(r['SUDAH']).replace(/[^0-9.]/g, '')) || 0;
         const pending = parseFloat(String(r['BELUM']).replace(/[^0-9.]/g, '')) || 0;
 
+        const dataAttr = JSON.stringify(r).replace(/"/g, '&quot;');
+
         html += `
-            <tr>
+            <tr class="row-clickable-rekap" data-row='${dataAttr}'>
                 <td><strong>${p}</strong></td>
                 <td>${total}</td>
                 <td>${reguler}</td>
                 <td>${club}</td>
                 <td><span class="status-badge success">${success}</span></td>
                 <td><span class="status-badge pending">${pending}</span></td>
+                <td class="arrow-cell"><i data-lucide="chevron-right"></i></td>
             </tr>
         `;
     }
@@ -417,6 +500,19 @@ function renderRekap(rekap) {
     `;
 
     rekapList.innerHTML = html;
+
+    if (typeof lucide !== 'undefined') lucide.createIcons();
+
+    document.querySelectorAll('.row-clickable-rekap').forEach(row => {
+        row.addEventListener('click', () => {
+            try {
+                const data = JSON.parse(row.dataset.row);
+                openModalRekap(data);
+            } catch (e) {
+                console.error('Modal Rekap error:', e);
+            }
+        });
+    });
 }
 
 // ============================================================

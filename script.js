@@ -89,7 +89,6 @@ const modalKeterangan = $('modalKeterangan');
 const modalRekapOverlay = $('modalRekapOverlay');
 const modalRekapClose = $('modalRekapClose');
 const modalRekapTitle = $('modalRekapTitle');
-const modalRekapPeriode = $('modalRekapPeriode');
 const modalRekapRegSukses = $('modalRekapRegSukses');
 const modalRekapRegSuksesFee = $('modalRekapRegSuksesFee');
 const modalRekapClubSukses = $('modalRekapClubSukses');
@@ -162,7 +161,6 @@ function openModalRekap(data) {
     };
 
     modalRekapTitle.innerHTML = `<span class="info-icon"><i data-lucide="bar-chart-2"></i></span> Detail Rekap — ${periode}`;
-    modalRekapPeriode.textContent = periode;
 
     modalRekapRegSukses.textContent = regSukses + ' Jam';
     modalRekapRegSuksesFee.textContent = formatRp(regSuksesFee);

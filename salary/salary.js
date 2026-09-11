@@ -1,6 +1,6 @@
 // ============================================================
 // salary.js — Halaman Salary (Success & Pending)
-// Rekap Mengajar SIAQ — Optimized Edition
+// Optimized · Smooth · Print-ready
 // ============================================================
 
 // ============================================================
@@ -12,6 +12,7 @@ const PAGE = /pending\.html$/i.test(location.pathname) ? 'pending' : 'success';
 const SHEET_NAME = PAGE === 'pending' ? 'FEE_PENDING' : 'FEE_DONE';
 const PAGE_TITLE = PAGE === 'pending' ? 'PENDING' : 'SUCCESS';
 const HOME_URL = '../index.html';
+const IS_PENDING = PAGE === 'pending';
 
 const CSV_URL =
     `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:csv&sheet=${SHEET_NAME}`;
@@ -23,6 +24,7 @@ let classesData = [];
 let clubData = [];
 let classesTotal = 0;
 let clubTotal = 0;
+let currentView = 'home'; // 'home' | 'classes' | 'club'
 
 // ============================================================
 // DOM
@@ -33,6 +35,7 @@ const pageTitle = $('pageTitle');
 const viewHome = $('viewHome');
 const viewTable = $('viewTable');
 const btnBack = $('btnBack');
+const btnPrint = $('btnPrint');
 const cardClasses = $('cardClasses');
 const cardClub = $('cardClub');
 const tableTitle = $('tableTitle');
@@ -40,6 +43,7 @@ const tableTotal = $('tableTotal');
 const tableBody = $('tableBody');
 const tableCount = $('tableCount');
 const errorBox = $('errorBox');
+const printArea = $('printArea');
 
 const modalOverlay = $('modalOverlay');
 const modalClose = $('modalClose');
@@ -52,13 +56,18 @@ const modalAmount = $('modalAmount');
 const modalTotal = $('modalTotal');
 
 // ============================================================
+// SVG INLINE — back & chevron
+// ============================================================
+const SVG_CHEVRON = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>`;
+
+// ============================================================
 // HELPER — FORMAT
 // ============================================================
-function formatRp(value) {
+function formatRupiahShort(value) {
     if (value === '' || value === null || value === undefined) return '-';
     const num = parseFloat(String(value).replace(/[^0-9.-]/g, ''));
-    if (isNaN(num)) return '-';
-    return 'Rp' + num.toLocaleString('id-ID');
+    if (isNaN(num) || num === 0) return '-';
+    return 'Rp' + Math.round(num / 1000) + 'K';
 }
 
 function clean(str) {
@@ -135,8 +144,10 @@ function extractData(rows) {
 // NAVIGASI VIEW
 // ============================================================
 function showHome(push = true) {
+    currentView = 'home';
     pageTitle.textContent = PAGE_TITLE;
     document.title = PAGE_TITLE + ' — Rekap Mengajar SIAQ';
+    if (btnPrint) btnPrint.classList.remove('visible');
 
     viewTable.style.display = 'none';
     viewHome.style.display = 'block';
@@ -150,19 +161,25 @@ function showHome(push = true) {
 }
 
 function showTable(type, push = true) {
+    currentView = type;
     const isClasses = type === 'classes';
     const data = isClasses ? classesData : clubData;
     const total = isClasses ? classesTotal : clubTotal;
     const label = isClasses ? 'Classes' : 'Club';
 
     tableTitle.textContent = label;
-    tableTotal.textContent = formatRp(total);
+    tableTotal.textContent = formatRupiahShort(total);
     if (tableCount) tableCount.textContent = data.length + ' data';
 
     renderTable(data);
 
     pageTitle.textContent = PAGE_TITLE + ' / ' + label;
     document.title = PAGE_TITLE + ' / ' + label + ' — Rekap Mengajar SIAQ';
+
+    // Tombol print: hanya di halaman pending
+    if (btnPrint && IS_PENDING) {
+        btnPrint.classList.add('visible');
+    }
 
     viewHome.style.display = 'none';
     viewTable.style.display = 'block';
@@ -195,13 +212,11 @@ function renderTable(data) {
                 <td><strong>${escapeHtml(r.TANGGAL) || '-'}</strong></td>
                 <td>${escapeHtml(r.HARI) || '-'}</td>
                 <td><span class="tag tag-grade">${escapeHtml(r.KELAS) || '-'}</span></td>
-                <td class="arrow-cell"><i data-lucide="chevron-right"></i></td>
+                <td class="arrow-cell">${SVG_CHEVRON}</td>
             </tr>
         `;
     }
     tableBody.innerHTML = html;
-
-    if (typeof lucide !== 'undefined') lucide.createIcons();
 
     tableBody.querySelectorAll('.row-clickable').forEach(row => {
         row.addEventListener('click', () => {
@@ -221,10 +236,10 @@ function renderTable(data) {
 function getStatBadge(stat) {
     const s = String(stat || '').trim();
     if (s.includes('🟢') || /succ|ok|done|selesai/i.test(s)) {
-        return `<span class="stat-badge success"><i data-lucide="check-circle"></i> Success</span>`;
+        return `<span class="stat-badge success">Success</span>`;
     }
     if (s.includes('🔴') || /pend|pending|belum/i.test(s)) {
-        return `<span class="stat-badge pending"><i data-lucide="clock"></i> Pending</span>`;
+        return `<span class="stat-badge pending">Pending</span>`;
     }
     return `<span class="stat-badge neutral">${escapeHtml(s) || '-'}</span>`;
 }
@@ -235,12 +250,11 @@ function openModal(data) {
     modalKelas.textContent   = data.KELAS || '-';
     modalJp.textContent      = data.JP ? data.JP + ' JP' : '-';
     modalStat.innerHTML      = getStatBadge(data.STAT);
-    modalAmount.textContent  = formatRp(data.AMOUNT);
-    modalTotal.textContent   = data.TOTAL ? formatRp(data.TOTAL) : '-';
+    modalAmount.textContent  = formatRupiahShort(data.AMOUNT);
+    modalTotal.textContent   = data.TOTAL ? formatRupiahShort(data.TOTAL) : '-';
 
     modalOverlay.classList.add('open');
     document.body.style.overflow = 'hidden';
-    if (typeof lucide !== 'undefined') lucide.createIcons();
 
     if (!history.state || history.state.view !== 'modal') {
         history.pushState({ view: 'modal' }, '', location.pathname + location.hash);
@@ -253,22 +267,88 @@ function closeModal() {
 }
 
 // ============================================================
+// PRINT — bangun area print, lalu window.print()
+// ============================================================
+function buildPrintArea() {
+    if (!printArea) return;
+
+    const isClasses = currentView === 'classes';
+    const data = isClasses ? classesData : clubData;
+    const total = isClasses ? classesTotal : clubTotal;
+    const label = isClasses ? 'Classes' : 'Club';
+
+    const today = new Date();
+    const tanggalCetak = today.toLocaleDateString('id-ID', {
+        day: '2-digit', month: 'long', year: 'numeric'
+    });
+
+    // Bangun baris tabel
+    let rowsHtml = '';
+    for (const r of data) {
+        const jp = parseFloat(String(r.JP).replace(/[^0-9.-]/g, '')) || 0;
+        const amount = parseFloat(String(r.AMOUNT).replace(/[^0-9.-]/g, '')) || 0;
+        const lineTotal = jp * amount;
+
+        rowsHtml += `
+            <tr>
+                <td>${escapeHtml(r.TANGGAL)}</td>
+                <td>${escapeHtml(r.HARI)}</td>
+                <td>${escapeHtml(r.KELAS)}</td>
+                <td>${jp || '-'}</td>
+                <td>${formatRupiahShort(r.AMOUNT)}</td>
+                <td>${lineTotal ? formatRupiahShort(lineTotal) : '-'}</td>
+            </tr>
+        `;
+    }
+
+    printArea.innerHTML = `
+        <div class="print-title">REKAP FEE ${escapeHtml(PAGE_TITLE)}</div>
+        <div class="print-subtitle">Sekolah Islam Akhlaqul Quran</div>
+        <div class="print-subtitle">Ahmad Zaman Huri</div>
+        <div class="print-meta">Kategori: ${escapeHtml(label)} &nbsp;·&nbsp; Dicetak: ${tanggalCetak}</div>
+        <div class="print-divider"></div>
+        <table>
+            <thead>
+                <tr>
+                    <th>Tanggal</th>
+                    <th>Hari</th>
+                    <th>Kelas</th>
+                    <th>JP</th>
+                    <th>Amount</th>
+                    <th>Total</th>
+                </tr>
+            </thead>
+            <tbody>
+                ${rowsHtml || '<tr><td colspan="6" style="text-align:center;">Tidak ada data.</td></tr>'}
+            </tbody>
+        </table>
+        <div class="print-summary">
+            <span class="print-summary-label">Jumlah: ${data.length} pertemuan</span>
+            <span class="print-summary-value">TOTAL: ${formatRupiahShort(total)}</span>
+        </div>
+    `;
+}
+
+function handlePrint() {
+    if (currentView !== 'classes' && currentView !== 'club') return;
+    buildPrintArea();
+    // Beri waktu browser render area print, lalu panggil print
+    setTimeout(() => window.print(), 50);
+}
+
+// ============================================================
 // ERROR HANDLING
 // ============================================================
 function showError(message) {
     if (errorBox) {
         errorBox.innerHTML = `
             <div class="error-card">
-                <div class="error-icon"><i data-lucide="alert-triangle"></i></div>
                 <div class="error-title">Gagal Memuat Data</div>
                 <div class="error-desc">${escapeHtml(message)}</div>
-                <button class="error-retry" id="errorRetry">
-                    <i data-lucide="refresh-cw"></i> Coba Lagi
-                </button>
+                <button class="error-retry" id="errorRetry">Coba Lagi</button>
             </div>
         `;
         errorBox.style.display = 'block';
-        if (typeof lucide !== 'undefined') lucide.createIcons();
 
         const retry = $('errorRetry');
         if (retry) retry.addEventListener('click', () => location.reload());
@@ -290,6 +370,10 @@ btnBack.addEventListener('click', () => {
         location.href = HOME_URL;
     }
 });
+
+if (btnPrint) {
+    btnPrint.addEventListener('click', handlePrint);
+}
 
 modalClose.addEventListener('click', closeModal);
 
@@ -343,8 +427,6 @@ async function init() {
         viewHome.style.display = 'none';
         showError(err.message || 'Terjadi kesalahan.');
     }
-
-    if (typeof lucide !== 'undefined') lucide.createIcons();
 }
 
 init();

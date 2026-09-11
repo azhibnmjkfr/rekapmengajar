@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes" />
+    <title>Pending — Rekap Mengajar SIAQ</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet" />
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link rel="stylesheet" href="salary.css" />
+</head>
+<body>
+
+    <div class="container">
+
+        <div class="salary-header">
+            <button class="btn-back" id="btnBack" aria-label="Kembali">
+                <i data-lucide="arrow-left"></i>
+            </button>
+            <h1 class="salary-header-title" id="pageTitle">PENDING</h1>
+        </div>
+
+        <div id="errorBox"></div>
+
+        <div id="viewHome">
+            <div class="card-grid">
+                <div class="salary-card" id="cardClasses">
+                    <div class="salary-card-icon">
+                        <i data-lucide="graduation-cap"></i>
+                    </div>
+                    <div class="salary-card-title">Classes</div>
+                    <div class="salary-card-desc">Lihat detail kelas</div>
+                </div>
+                <div class="salary-card" id="cardClub">
+                    <div class="salary-card-icon">
+                        <i data-lucide="users"></i>
+                    </div>
+                    <div class="salary-card-title">Club</div>
+                    <div class="salary-card-desc">Lihat detail club</div>
+                </div>
+            </div>
+        </div>
+
+        <div id="viewTable" style="display:none;">
+            <div class="table-header-bar">
+                <div class="table-header-title">
+                    <span id="tableTitle">Classes</span>
+                    <span class="table-count" id="tableCount"></span>
+                </div>
+                <div class="total-badge">
+                    <i data-lucide="wallet"></i>
+                    <span id="tableTotal">Rp0</span>
+                </div>
+            </div>
+            <div class="table-wrap">
+                <div class="table-scroll">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Tanggal</th>
+                                <th>Hari</th>
+                                <th>Kelas</th>
+                                <th style="text-align:center;width:40px;"></th>
+                            </tr>
+                        </thead>
+                        <tbody id="tableBody">
+                            <tr>
+                                <td colspan="4" style="text-align:center;padding:30px 0;color:#6f84a0;">
+                                    Memuat data …
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer-credit">created by Azhibnmjkfr</div>
+    </div>
+
+    <div class="modal-overlay" id="modalOverlay">
+        <div class="modal-box">
+            <button class="modal-close" id="modalClose">
+                <i data-lucide="x"></i>
+            </button>
+            <div class="modal-title">
+                <span class="info-icon"><i data-lucide="info"></i></span>
+                Detail
+            </div>
+            <div>
+                <div class="modal-item">
+                    <span class="modal-label">Tanggal</span>
+                    <span class="modal-value" id="modalTanggal">-</span>
+                </div>
+                <div class="modal-item">
+                    <span class="modal-label">Hari</span>
+                    <span class="modal-value" id="modalHari">-</span>
+                </div>
+                <div class="modal-item">
+                    <span class="modal-label">Kelas</span>
+                    <span class="modal-value" id="modalKelas">-</span>
+                </div>
+                <div class="modal-item">
+                    <span class="modal-label">JP</span>
+                    <span class="modal-value" id="modalJp">-</span>
+                </div>
+                <div class="modal-item">
+                    <span class="modal-label">Stat</span>
+                    <span class="modal-value" id="modalStat">-</span>
+                </div>
+                <div class="modal-item">
+                    <span class="modal-label">Amount</span>
+                    <span class="modal-value" id="modalAmount">-</span>
+                </div>
+                <div class="modal-item">
+                    <span class="modal-label">Total</span>
+                    <span class="modal-value" id="modalTotal">-</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="salary.js"></script>
+
+</body>
+</html>

@@ -202,7 +202,40 @@
 
             <!-- REKAP -->
             <div id="rekapContent" style="display:none;">
-                <div class="rekap-list" id="rekapList"></div>
+
+                <!-- ===== AREA ATAS: Tabel Rekap ===== -->
+                <div class="rekap-area rekap-area-top">
+                    <div class="rekap-list" id="rekapList"></div>
+                </div>
+
+                <!-- ===== PEMISAH ===== -->
+                <div class="rekap-divider">
+                    <span class="rekap-divider-line"></span>
+                </div>
+
+                <!-- ===== AREA BAWAH: Card Success & Pending ===== -->
+                <div class="rekap-area rekap-area-bottom">
+                    <div class="card-grid-salary">
+
+                        <a href="salary/success.html" class="salary-entry-card">
+                            <div class="salary-entry-icon">
+                                <i data-lucide="check-circle"></i>
+                            </div>
+                            <div class="salary-entry-title">Success</div>
+                            <div class="salary-entry-desc">Lihat rekap yang sudah diproses</div>
+                        </a>
+
+                        <a href="salary/pending.html" class="salary-entry-card">
+                            <div class="salary-entry-icon">
+                                <i data-lucide="clock"></i>
+                            </div>
+                            <div class="salary-entry-title">Pending</div>
+                            <div class="salary-entry-desc">Lihat rekap yang belum diproses</div>
+                        </a>
+
+                    </div>
+                </div>
+
             </div>
         </div>
 

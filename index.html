@@ -17,20 +17,19 @@
 
     <!-- ===== LOADING SCREEN ===== -->
     <div id="loadingScreen">
-        <div class="logo-icon">
-            <i data-lucide="sparkles"></i>
-        </div>
-        <h1>Rekap Mengajar</h1>
-        <div class="sub">Sekolah Islam Akhlaqul Quran</div>
-        <div class="name">Ahmad Zaman Huri</div>
-        <div class="tahun-ajaran">2026 / 2027</div>
-        <div class="loader-wrapper">
-            <div class="loader-bar">
-                <div class="fill"></div>
-            </div>
-            <div class="loader-label">
-                <span>Loading</span>
-                <span class="percent">100%</span>
+        <div class="loading-content">
+            <h1 class="loading-title">Rekap Mengajar SIAQ</h1>
+            <div class="loading-name">Ahmad Zaman Huri</div>
+            <div class="loading-year">2026/2027</div>
+
+            <div class="loading-bar-wrap">
+                <div class="loading-bar">
+                    <div class="loading-bar-fill" id="loadingFill"></div>
+                </div>
+                <div class="loading-label">
+                    <span>Memuat</span>
+                    <span class="loading-percent" id="loadingPercent">0%</span>
+                </div>
             </div>
         </div>
     </div>
@@ -218,17 +217,11 @@
                     <div class="card-grid-salary">
 
                         <a href="salary/success.html" class="salary-entry-card">
-                            <div class="salary-entry-icon">
-                                <i data-lucide="check-circle"></i>
-                            </div>
                             <div class="salary-entry-title">Success</div>
                             <div class="salary-entry-desc">Lihat rekap yang sudah diproses</div>
                         </a>
 
                         <a href="salary/pending.html" class="salary-entry-card">
-                            <div class="salary-entry-icon">
-                                <i data-lucide="clock"></i>
-                            </div>
                             <div class="salary-entry-title">Pending</div>
                             <div class="salary-entry-desc">Lihat rekap yang belum diproses</div>
                         </a>

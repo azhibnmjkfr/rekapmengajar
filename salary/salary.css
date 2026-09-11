@@ -1,6 +1,6 @@
 /* ============================================================
    salary.css — Halaman Salary (Success & Pending)
-   Optimized & Smooth Edition
+   Optimized · Smooth · Print-ready
    ============================================================ */
 
 /* ============================================================
@@ -95,7 +95,7 @@ body {
     transform: translateX(-3px) scale(0.94);
 }
 
-.btn-back i {
+.btn-back svg {
     width: 20px;
     height: 20px;
 }
@@ -106,17 +106,54 @@ body {
     letter-spacing: -0.02em;
     color: #f8faf5;
     z-index: 1;
+    flex: 1;
+}
+
+/* Tombol print — hanya muncul di pending */
+.btn-print {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: 1px solid rgba(255, 255, 255, 0.20);
+    background: rgba(255, 255, 255, 0.08);
+    color: #f8faf5;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: background 0.25s ease, transform 0.25s ease;
+    flex-shrink: 0;
+    z-index: 1;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.btn-print.visible {
+    display: flex;
+}
+
+.btn-print:hover {
+    background: rgba(255, 255, 255, 0.20);
+    transform: translateY(-2px);
+}
+
+.btn-print:active {
+    transform: scale(0.94);
+}
+
+.btn-print svg {
+    width: 20px;
+    height: 20px;
 }
 
 /* ============================================================
    VIEW TRANSITIONS
    ============================================================ */
 .view-fade-in {
-    animation: viewFadeIn 0.35s cubic-bezier(0.16, 1, 0.3, 1) both;
+    animation: viewFadeIn 0.3s cubic-bezier(0.16, 1, 0.3, 1) both;
 }
 
 @keyframes viewFadeIn {
-    from { opacity: 0; transform: translateY(10px); }
+    from { opacity: 0; transform: translateY(8px); }
     to   { opacity: 1; transform: translateY(0); }
 }
 
@@ -134,7 +171,7 @@ body {
     background: #ffffff;
     border: 1px solid rgba(180, 195, 160, 0.40);
     border-radius: 24px;
-    padding: 32px 20px;
+    padding: 40px 20px;
     text-align: center;
     cursor: pointer;
     transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1),
@@ -144,9 +181,8 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 12px;
-    position: relative;
-    overflow: hidden;
+    justify-content: center;
+    gap: 6px;
     -webkit-tap-highlight-color: transparent;
 }
 
@@ -162,34 +198,8 @@ body {
     transform: translateY(-3px) scale(0.98);
 }
 
-.salary-card-icon {
-    width: 56px;
-    height: 56px;
-    border-radius: 50%;
-    background: linear-gradient(145deg, #e8f0d8, #d4e8c0);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: #3a5a2a;
-    transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1),
-                background 0.3s ease,
-                color 0.3s ease;
-    box-shadow: inset 0 1px 2px rgba(255, 255, 255, 0.8);
-}
-
-.salary-card:hover .salary-card-icon {
-    background: linear-gradient(145deg, #5a7a42, #3a5a2a);
-    color: #f8faf5;
-    transform: scale(1.08) rotate(-3deg);
-}
-
-.salary-card-icon i {
-    width: 26px;
-    height: 26px;
-}
-
 .salary-card-title {
-    font-size: 16px;
+    font-size: 20px;
     font-weight: 600;
     color: #2d4a1e;
     letter-spacing: -0.01em;
@@ -234,22 +244,16 @@ body {
 .total-badge {
     display: inline-flex;
     align-items: center;
-    gap: 8px;
-    padding: 8px 18px;
+    padding: 8px 20px;
     border-radius: 40px;
     background: linear-gradient(145deg, #3a5a2a, #5a7a42);
     color: #f8faf5;
-    font-size: 14px;
-    font-weight: 600;
+    font-size: 15px;
+    font-weight: 700;
+    letter-spacing: -0.01em;
     box-shadow:
         0 8px 24px -8px rgba(40, 70, 30, 0.40),
         inset 0 1px 0 rgba(255, 255, 255, 0.12);
-}
-
-.total-badge i {
-    width: 16px;
-    height: 16px;
-    color: #d4e8c0;
 }
 
 /* ============================================================
@@ -345,27 +349,22 @@ tr:last-child td { border-bottom: none; }
     transform: translateX(3px);
 }
 
-.row-clickable .arrow-cell i {
+.row-clickable .arrow-cell svg {
     width: 18px;
     height: 18px;
 }
 
 /* ============================================================
-   STAT BADGE (di modal)
+   STAT BADGE (di modal) — teks saja, tanpa ikon
    ============================================================ */
 .stat-badge {
     display: inline-flex;
     align-items: center;
-    gap: 5px;
     padding: 3px 12px;
     border-radius: 40px;
     font-size: 12px;
     font-weight: 600;
-}
-
-.stat-badge i {
-    width: 14px;
-    height: 14px;
+    letter-spacing: 0.2px;
 }
 
 .stat-badge.success {
@@ -434,8 +433,11 @@ tr:last-child td { border-bottom: none; }
     border: none;
     cursor: pointer;
     color: #94a3b8;
+    font-size: 18px;
+    line-height: 1;
     transition: color 0.2s ease, transform 0.3s ease, background 0.2s ease;
-    padding: 6px;
+    width: 32px;
+    height: 32px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -449,37 +451,12 @@ tr:last-child td { border-bottom: none; }
     transform: rotate(90deg);
 }
 
-.modal-close i {
-    width: 22px;
-    height: 22px;
-}
-
 .modal-title {
     font-size: 18px;
     font-weight: 600;
     color: #0b162b;
     margin-bottom: 16px;
     padding-right: 32px;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-}
-
-.modal-title .info-icon {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    width: 32px;
-    height: 32px;
-    border-radius: 50%;
-    background: linear-gradient(145deg, #e8f0d8, #d4e8c0);
-    color: #3a5a2a;
-    flex-shrink: 0;
-}
-
-.modal-title .info-icon i {
-    width: 18px;
-    height: 18px;
 }
 
 .modal-item {
@@ -525,23 +502,6 @@ tr:last-child td { border-bottom: none; }
     border: 1px solid #fef2f2;
 }
 
-.error-icon {
-    width: 64px;
-    height: 64px;
-    border-radius: 50%;
-    background: linear-gradient(145deg, #fef2f2, #fee2e2);
-    color: #dc2626;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin: 0 auto 18px;
-}
-
-.error-icon i {
-    width: 30px;
-    height: 30px;
-}
-
 .error-title {
     font-size: 17px;
     font-weight: 600;
@@ -559,7 +519,6 @@ tr:last-child td { border-bottom: none; }
 .error-retry {
     display: inline-flex;
     align-items: center;
-    gap: 8px;
     padding: 10px 24px;
     border: none;
     border-radius: 40px;
@@ -581,8 +540,6 @@ tr:last-child td { border-bottom: none; }
 
 .error-retry:active { transform: scale(0.97); }
 
-.error-retry i { width: 16px; height: 16px; }
-
 /* ============================================================
    FOOTER
    ============================================================ */
@@ -595,23 +552,149 @@ tr:last-child td { border-bottom: none; }
 }
 
 /* ============================================================
+   PRINT AREA — tersembunyi di layar, muncul saat print
+   ============================================================ */
+#printArea {
+    display: none;
+}
+
+/* ============================================================
+   @MEDIA PRINT — Layout PDF
+   ============================================================ */
+@media print {
+    @page {
+        size: A4 portrait;
+        margin: 18mm 16mm;
+    }
+
+    body {
+        background: #ffffff !important;
+        display: block;
+        font-family: 'Geist', -apple-system, system-ui, sans-serif;
+        color: #000;
+    }
+
+    /* Sembunyikan semua elemen layar */
+    .salary-header,
+    .container > #viewHome,
+    .container > #viewTable,
+    .container > #errorBox,
+    .modal-overlay,
+    .footer-credit {
+        display: none !important;
+    }
+
+    .container {
+        max-width: none;
+        padding: 0;
+        width: 100%;
+    }
+
+    /* Tampilkan area print */
+    #printArea {
+        display: block !important;
+    }
+
+    #printArea .print-title {
+        font-size: 18px;
+        font-weight: 700;
+        letter-spacing: -0.01em;
+        margin-bottom: 2px;
+        color: #000;
+    }
+
+    #printArea .print-subtitle {
+        font-size: 12px;
+        color: #444;
+        margin-bottom: 2px;
+    }
+
+    #printArea .print-meta {
+        font-size: 11px;
+        color: #666;
+        margin-bottom: 14px;
+    }
+
+    #printArea .print-divider {
+        height: 1px;
+        background: #000;
+        margin: 10px 0 14px;
+    }
+
+    #printArea table {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 10.5pt;
+        min-width: 0;
+    }
+
+    #printArea thead th {
+        background: #f0f0f0 !important;
+        color: #000;
+        font-size: 9pt;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.4px;
+        padding: 7px 8px;
+        border: 1px solid #000;
+        text-align: left;
+    }
+
+    #printArea tbody td {
+        padding: 6px 8px;
+        border: 1px solid #999;
+        color: #000;
+        font-size: 10pt;
+    }
+
+    #printArea tbody tr:nth-child(even) {
+        background: #fafafa;
+    }
+
+    #printArea .print-summary {
+        margin-top: 14px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        font-size: 11pt;
+        border-top: 2px solid #000;
+        padding-top: 10px;
+    }
+
+    #printArea .print-summary-label {
+        font-weight: 600;
+    }
+
+    #printArea .print-summary-value {
+        font-weight: 700;
+        font-size: 13pt;
+    }
+
+    /* Paksa warna background tercetak */
+    * {
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+    }
+}
+
+/* ============================================================
    RESPONSIVE
    ============================================================ */
 @media (max-width: 640px) {
     .salary-header { padding: 16px 16px; border-radius: 20px; margin-bottom: 18px; }
     .salary-header-title { font-size: 17px; }
     .btn-back { width: 36px; height: 36px; }
-    .btn-back i { width: 18px; height: 18px; }
+    .btn-back svg { width: 18px; height: 18px; }
+    .btn-print { width: 36px; height: 36px; }
+    .btn-print svg { width: 18px; height: 18px; }
 
     .card-grid { gap: 10px; }
-    .salary-card { padding: 24px 14px; border-radius: 20px; }
-    .salary-card-icon { width: 48px; height: 48px; }
-    .salary-card-icon i { width: 22px; height: 22px; }
-    .salary-card-title { font-size: 14px; }
+    .salary-card { padding: 32px 14px; border-radius: 20px; }
+    .salary-card-title { font-size: 17px; }
     .salary-card-desc { font-size: 11px; }
 
     .table-header-title { font-size: 16px; }
-    .total-badge { font-size: 13px; padding: 6px 14px; }
+    .total-badge { font-size: 14px; padding: 6px 14px; }
 
     table { font-size: 12.5px; min-width: 320px; }
     th { padding: 10px 8px; font-size: 9.5px; }
@@ -622,14 +705,12 @@ tr:last-child td { border-bottom: none; }
     .modal-item .modal-value { font-size: 13px; }
 
     .error-card { padding: 32px 20px 26px; }
-    .error-icon { width: 56px; height: 56px; }
-    .error-icon i { width: 26px; height: 26px; }
 }
 
 @media (max-width: 400px) {
     .salary-header-title { font-size: 15px; }
-    .salary-card { padding: 20px 10px; }
-    .salary-card-title { font-size: 13px; }
+    .salary-card { padding: 26px 10px; }
+    .salary-card-title { font-size: 15px; }
     .salary-card-desc { display: none; }
 
     table { font-size: 11px; min-width: 300px; }
@@ -639,19 +720,16 @@ tr:last-child td { border-bottom: none; }
     .modal-item .modal-label { width: 70px; font-size: 10px; }
     .modal-item .modal-value { font-size: 12px; }
     .modal-title { font-size: 16px; }
-    .modal-title .info-icon { width: 28px; height: 28px; }
-    .modal-title .info-icon i { width: 16px; height: 16px; }
 }
 
 @media (min-width: 1024px) {
     .salary-header { padding: 26px 32px; border-radius: 32px; }
     .salary-header-title { font-size: 24px; }
     .btn-back { width: 44px; height: 44px; }
+    .btn-print { width: 44px; height: 44px; }
 
-    .salary-card { padding: 44px 28px; border-radius: 28px; }
-    .salary-card-icon { width: 64px; height: 64px; }
-    .salary-card-icon i { width: 30px; height: 30px; }
-    .salary-card-title { font-size: 18px; }
+    .salary-card { padding: 52px 28px; border-radius: 28px; }
+    .salary-card-title { font-size: 22px; }
     .salary-card-desc { font-size: 13px; }
 
     table { font-size: 15px; min-width: 500px; }

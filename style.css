@@ -1152,6 +1152,131 @@ tr:last-child td {
 }
 
 /* ============================================================
+   TAB REKAP — AREA ATAS & BAWAH
+   ============================================================ */
+.rekap-area {
+    width: 100%;
+}
+
+/* --- PEMISAH --- */
+.rekap-divider {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 32px 0 28px;
+}
+
+.rekap-divider-line {
+    display: block;
+    width: 100%;
+    height: 1px;
+    background: linear-gradient(
+        to right,
+        transparent 0%,
+        rgba(120, 140, 100, 0.30) 20%,
+        rgba(120, 140, 100, 0.30) 80%,
+        transparent 100%
+    );
+}
+
+/* ============================================================
+   AREA BAWAH — 2 CARD SUCCESS & PENDING
+   ============================================================ */
+.card-grid-salary {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+}
+
+.salary-entry-card {
+    background: rgba(255, 255, 255, 0.75);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    border: 1px solid rgba(180, 195, 160, 0.40);
+    border-radius: 22px;
+    padding: 28px 20px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.03);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    position: relative;
+    overflow: hidden;
+    text-decoration: none;
+    color: inherit;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.salary-entry-card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(145deg, rgba(90, 122, 66, 0.04), rgba(90, 122, 66, 0.00));
+    opacity: 0;
+    transition: opacity 0.35s ease;
+    pointer-events: none;
+}
+
+.salary-entry-card:hover::before {
+    opacity: 1;
+}
+
+.salary-entry-card:hover {
+    transform: translateY(-5px);
+    border-color: rgba(74, 106, 58, 0.50);
+    box-shadow:
+        0 20px 48px -18px rgba(74, 106, 58, 0.40),
+        0 4px 12px rgba(0, 0, 0, 0.04);
+    background: rgba(255, 255, 255, 0.95);
+}
+
+.salary-entry-card:active {
+    transform: translateY(-2px) scale(0.98);
+}
+
+.salary-entry-icon {
+    width: 52px;
+    height: 52px;
+    border-radius: 50%;
+    background: linear-gradient(145deg, #e8f0d8, #d4e8c0);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #3a5a2a;
+    transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+    box-shadow: inset 0 1px 2px rgba(255, 255, 255, 0.8);
+}
+
+.salary-entry-card:hover .salary-entry-icon {
+    background: linear-gradient(145deg, #5a7a42, #3a5a2a);
+    color: #f8faf5;
+    transform: scale(1.08) rotate(-3deg);
+    box-shadow: 0 8px 20px -6px rgba(74, 106, 58, 0.50);
+}
+
+.salary-entry-icon i {
+    width: 24px;
+    height: 24px;
+}
+
+.salary-entry-title {
+    font-size: 16px;
+    font-weight: 600;
+    color: #2d4a1e;
+    letter-spacing: -0.01em;
+}
+
+.salary-entry-desc {
+    font-size: 12px;
+    color: #6a7f5a;
+    font-weight: 400;
+    line-height: 1.4;
+}
+
+/* ============================================================
    RESPONSIVE
    ============================================================ */
 @media (max-width: 640px) {
@@ -1178,6 +1303,15 @@ tr:last-child td {
     #loadingScreen .logo-icon { width: 72px; height: 72px; }
     #loadingScreen .logo-icon i { width: 36px; height: 36px; }
     .status-badge { font-size: 11px; padding: 2px 10px; min-width: 50px; }
+
+    /* Tab Rekap responsive */
+    .rekap-divider { margin: 24px 0 20px; }
+    .card-grid-salary { gap: 10px; }
+    .salary-entry-card { padding: 22px 14px; border-radius: 18px; }
+    .salary-entry-icon { width: 44px; height: 44px; }
+    .salary-entry-icon i { width: 20px; height: 20px; }
+    .salary-entry-title { font-size: 14px; }
+    .salary-entry-desc { font-size: 11px; }
 }
 
 @media (max-width: 400px) {
@@ -1205,6 +1339,11 @@ tr:last-child td {
     #loadingScreen .logo-icon { width: 64px; height: 64px; }
     #loadingScreen .logo-icon i { width: 32px; height: 32px; }
     .status-badge { font-size: 10px; padding: 2px 8px; min-width: 40px; }
+
+    /* Tab Rekap responsive */
+    .salary-entry-card { padding: 18px 10px; }
+    .salary-entry-title { font-size: 13px; }
+    .salary-entry-desc { display: none; }
 }
 
 @media (min-width: 1024px) {
@@ -1226,4 +1365,12 @@ tr:last-child td {
     #loadingScreen .logo-icon { width: 100px; height: 100px; }
     #loadingScreen .logo-icon i { width: 48px; height: 48px; }
     .status-badge { font-size: 13px; padding: 4px 16px; min-width: 70px; }
+
+    /* Tab Rekap responsive */
+    .rekap-divider { margin: 40px 0 34px; }
+    .salary-entry-card { padding: 36px 28px; border-radius: 26px; }
+    .salary-entry-icon { width: 60px; height: 60px; }
+    .salary-entry-icon i { width: 28px; height: 28px; }
+    .salary-entry-title { font-size: 18px; }
+    .salary-entry-desc { font-size: 13px; }
 }

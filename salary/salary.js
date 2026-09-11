@@ -1,6 +1,6 @@
 // ============================================================
 // salary.js — Halaman Salary (Success & Pending)
-// Rekap Mengajar SIAQ
+// Rekap Mengajar SIAQ — Optimized Edition
 // ============================================================
 
 // ============================================================
@@ -8,7 +8,6 @@
 // ============================================================
 const SHEET_ID = '1YBFPTE_TaE5n5FJrmE9RY5i7_ZWdAPVi2cEss-diNy8';
 
-// Deteksi halaman lebih akurat
 const PAGE = /pending\.html$/i.test(location.pathname) ? 'pending' : 'success';
 const SHEET_NAME = PAGE === 'pending' ? 'FEE_PENDING' : 'FEE_DONE';
 const PAGE_TITLE = PAGE === 'pending' ? 'PENDING' : 'SUCCESS';
@@ -24,7 +23,6 @@ let classesData = [];
 let clubData = [];
 let classesTotal = 0;
 let clubTotal = 0;
-let isLoading = true;
 
 // ============================================================
 // DOM
@@ -43,7 +41,6 @@ const tableBody = $('tableBody');
 const tableCount = $('tableCount');
 const errorBox = $('errorBox');
 
-// Modal detail
 const modalOverlay = $('modalOverlay');
 const modalClose = $('modalClose');
 const modalTanggal = $('modalTanggal');
@@ -114,7 +111,6 @@ function extractData(rows) {
     }
 
     for (const r of rows) {
-        // Blok Classes = kolom A:G
         const tglC = r[0] || '', hariC = r[1] || '', kelasC = r[2] || '';
         if (tglC || hariC || kelasC) {
             classesData.push({
@@ -124,7 +120,6 @@ function extractData(rows) {
             });
         }
 
-        // Blok Club = kolom I:O
         const tglK = r[8] || '', hariK = r[9] || '', kelasK = r[10] || '';
         if (tglK || hariK || kelasK) {
             clubData.push({
@@ -137,30 +132,17 @@ function extractData(rows) {
 }
 
 // ============================================================
-// NAVIGASI VIEW (dengan animasi smooth)
+// NAVIGASI VIEW
 // ============================================================
-function fadeSwitch(fromEl, toEl) {
-    fromEl.classList.add('view-fade-out');
-    setTimeout(() => {
-        fromEl.style.display = 'none';
-        fromEl.classList.remove('view-fade-out');
-        toEl.style.display = 'block';
-        toEl.classList.add('view-fade-in');
-        setTimeout(() => toEl.classList.remove('view-fade-in'), 400);
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-    }, 200);
-}
-
 function showHome(push = true) {
     pageTitle.textContent = PAGE_TITLE;
     document.title = PAGE_TITLE + ' — Rekap Mengajar SIAQ';
 
-    if (viewTable.style.display !== 'none') {
-        fadeSwitch(viewTable, viewHome);
-    } else {
-        viewHome.style.display = 'block';
-        viewTable.style.display = 'none';
-    }
+    viewTable.style.display = 'none';
+    viewHome.style.display = 'block';
+    viewHome.classList.remove('view-fade-in');
+    void viewHome.offsetWidth;
+    viewHome.classList.add('view-fade-in');
 
     if (push && (!history.state || history.state.view !== 'home')) {
         history.pushState({ view: 'home' }, '', location.pathname);
@@ -182,16 +164,17 @@ function showTable(type, push = true) {
     pageTitle.textContent = PAGE_TITLE + ' / ' + label;
     document.title = PAGE_TITLE + ' / ' + label + ' — Rekap Mengajar SIAQ';
 
-    if (viewHome.style.display !== 'none') {
-        fadeSwitch(viewHome, viewTable);
-    } else {
-        viewHome.style.display = 'none';
-        viewTable.style.display = 'block';
-    }
+    viewHome.style.display = 'none';
+    viewTable.style.display = 'block';
+    viewTable.classList.remove('view-fade-in');
+    void viewTable.offsetWidth;
+    viewTable.classList.add('view-fade-in');
 
     if (push) {
         history.pushState({ view: type }, '', '#' + type);
     }
+
+    window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
 // ============================================================
@@ -342,9 +325,6 @@ async function init() {
     pageTitle.textContent = PAGE_TITLE;
     document.title = PAGE_TITLE + ' — Rekap Mengajar SIAQ';
 
-    // Loading state
-    if (viewHome) viewHome.classList.add('is-loading');
-
     try {
         const res = await fetch(CSV_URL);
         if (!res.ok) throw new Error('Koneksi ke spreadsheet gagal.');
@@ -355,18 +335,12 @@ async function init() {
 
         extractData(rows);
 
-        isLoading = false;
-        if (viewHome) viewHome.classList.remove('is-loading');
-
         history.replaceState({ view: 'home' }, '', location.pathname);
         showHome(false);
 
     } catch (err) {
-        isLoading = false;
-        if (viewHome) viewHome.classList.remove('is-loading');
         console.error(err);
-
-        if (viewHome) viewHome.style.display = 'none';
+        viewHome.style.display = 'none';
         showError(err.message || 'Terjadi kesalahan.');
     }
 

@@ -5,9 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes" />
     <title>Success — Rekap Mengajar SIAQ</title>
 
-    <!-- Lucide Icons (versi pin) -->
-    <script src="https://unpkg.com/lucide@0.469.0"></script>
-
     <!-- CSS -->
     <link rel="stylesheet" href="salary.css" />
 </head>
@@ -18,9 +15,20 @@
         <!-- ===== HEADER ===== -->
         <div class="salary-header">
             <button class="btn-back" id="btnBack" aria-label="Kembali">
-                <i data-lucide="arrow-left"></i>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M19 12H5"/>
+                    <path d="m12 19-7-7 7-7"/>
+                </svg>
             </button>
             <h1 class="salary-header-title" id="pageTitle">SUCCESS</h1>
+            <!-- Tombol print — hanya aktif di pending -->
+            <button class="btn-print" id="btnPrint" aria-label="Cetak">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M6 9V2h12v7"/>
+                    <path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/>
+                    <rect x="6" y="14" width="12" height="8"/>
+                </svg>
+            </button>
         </div>
 
         <!-- ===== ERROR BOX ===== -->
@@ -31,17 +39,11 @@
             <div class="card-grid">
 
                 <div class="salary-card" id="cardClasses">
-                    <div class="salary-card-icon">
-                        <i data-lucide="graduation-cap"></i>
-                    </div>
                     <div class="salary-card-title">Classes</div>
                     <div class="salary-card-desc">Lihat detail kelas</div>
                 </div>
 
                 <div class="salary-card" id="cardClub">
-                    <div class="salary-card-icon">
-                        <i data-lucide="users"></i>
-                    </div>
                     <div class="salary-card-title">Club</div>
                     <div class="salary-card-desc">Lihat detail club</div>
                 </div>
@@ -57,10 +59,7 @@
                     <span id="tableTitle">Classes</span>
                     <span class="table-count" id="tableCount"></span>
                 </div>
-                <div class="total-badge">
-                    <i data-lucide="wallet"></i>
-                    <span id="tableTotal">Rp0</span>
-                </div>
+                <div class="total-badge" id="tableTotal">Rp0K</div>
             </div>
 
             <div class="table-wrap">
@@ -93,13 +92,8 @@
     <!-- ===== MODAL DETAIL ===== -->
     <div class="modal-overlay" id="modalOverlay">
         <div class="modal-box">
-            <button class="modal-close" id="modalClose">
-                <i data-lucide="x"></i>
-            </button>
-            <div class="modal-title">
-                <span class="info-icon"><i data-lucide="info"></i></span>
-                Detail
-            </div>
+            <button class="modal-close" id="modalClose" aria-label="Tutup">&#10005;</button>
+            <div class="modal-title">Detail</div>
             <div>
                 <div class="modal-item">
                     <span class="modal-label">Tanggal</span>
@@ -132,6 +126,9 @@
             </div>
         </div>
     </div>
+
+    <!-- ===== PRINT AREA (hanya tampil saat print) ===== -->
+    <div id="printArea"></div>
 
     <script src="salary.js"></script>
 

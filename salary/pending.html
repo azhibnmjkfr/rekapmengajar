@@ -5,14 +5,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes" />
     <title>Pending — Rekap Mengajar SIAQ</title>
 
-    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet" />
-    <script src="https://unpkg.com/lucide@latest"></script>
+    <!-- Lucide Icons (versi pin) -->
+    <script src="https://unpkg.com/lucide@0.469.0"></script>
+
+    <!-- CSS -->
     <link rel="stylesheet" href="salary.css" />
 </head>
 <body>
 
     <div class="container">
 
+        <!-- ===== HEADER ===== -->
         <div class="salary-header">
             <button class="btn-back" id="btnBack" aria-label="Kembali">
                 <i data-lucide="arrow-left"></i>
@@ -20,10 +23,13 @@
             <h1 class="salary-header-title" id="pageTitle">PENDING</h1>
         </div>
 
+        <!-- ===== ERROR BOX ===== -->
         <div id="errorBox"></div>
 
+        <!-- ===== VIEW HOME: 2 CARD ===== -->
         <div id="viewHome">
             <div class="card-grid">
+
                 <div class="salary-card" id="cardClasses">
                     <div class="salary-card-icon">
                         <i data-lucide="graduation-cap"></i>
@@ -31,6 +37,7 @@
                     <div class="salary-card-title">Classes</div>
                     <div class="salary-card-desc">Lihat detail kelas</div>
                 </div>
+
                 <div class="salary-card" id="cardClub">
                     <div class="salary-card-icon">
                         <i data-lucide="users"></i>
@@ -38,10 +45,13 @@
                     <div class="salary-card-title">Club</div>
                     <div class="salary-card-desc">Lihat detail club</div>
                 </div>
+
             </div>
         </div>
 
+        <!-- ===== VIEW TABLE ===== -->
         <div id="viewTable" style="display:none;">
+
             <div class="table-header-bar">
                 <div class="table-header-title">
                     <span id="tableTitle">Classes</span>
@@ -52,6 +62,7 @@
                     <span id="tableTotal">Rp0</span>
                 </div>
             </div>
+
             <div class="table-wrap">
                 <div class="table-scroll">
                     <table>
@@ -73,11 +84,13 @@
                     </table>
                 </div>
             </div>
+
         </div>
 
         <div class="footer-credit">created by Azhibnmjkfr</div>
     </div>
 
+    <!-- ===== MODAL DETAIL ===== -->
     <div class="modal-overlay" id="modalOverlay">
         <div class="modal-box">
             <button class="modal-close" id="modalClose">

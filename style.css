@@ -27,12 +27,12 @@ body {
 }
 
 /* ============================================================
-   LOADING SCREEN
+   LOADING SCREEN — Simpel & Elegan
    ============================================================ */
 #loadingScreen {
     position: fixed;
     inset: 0;
-    background: linear-gradient(145deg, #1a3a0a 0%, #2d4a1d 40%, #3a5a2a 100%);
+    background: linear-gradient(160deg, #1e3a14 0%, #2a4a1c 50%, #1e3a14 100%);
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -41,195 +41,82 @@ body {
     color: #f8faf5;
     z-index: 1000;
     padding: 30px;
-    transition: opacity 0.8s ease, transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: opacity 0.5s ease, transform 0.5s ease;
 }
 
 #loadingScreen.hide {
     opacity: 0;
-    transform: scale(1.06);
+    transform: scale(1.02);
     pointer-events: none;
 }
 
-#loadingScreen::before {
-    content: '';
-    position: absolute;
-    top: -50%;
-    left: -50%;
-    width: 200%;
-    height: 200%;
-    background: radial-gradient(circle at 30% 40%, rgba(255, 255, 255, 0.02) 0%, transparent 60%),
-                radial-gradient(circle at 70% 80%, rgba(255, 255, 255, 0.015) 0%, transparent 50%);
-    pointer-events: none;
-    animation: bgFloat 12s ease-in-out infinite alternate;
-}
-
-@keyframes bgFloat {
-    0% { transform: translate(0, 0) rotate(0deg); }
-    100% { transform: translate(2%, 2%) rotate(2deg); }
-}
-
-#loadingScreen .logo-icon {
-    width: 88px;
-    height: 88px;
-    background: rgba(255, 255, 255, 0.05);
-    border-radius: 50%;
+.loading-content {
     display: flex;
+    flex-direction: column;
     align-items: center;
-    justify-content: center;
-    margin-bottom: 28px;
-    border: 2px solid rgba(255, 255, 255, 0.06);
-    position: relative;
-    box-shadow: 0 0 40px rgba(100, 180, 60, 0.08);
-    animation: pulseGlow 2.4s ease-in-out infinite;
-}
-
-@keyframes pulseGlow {
-    0% { box-shadow: 0 0 20px rgba(100, 180, 60, 0.05), 0 0 40px rgba(100, 180, 60, 0.02); }
-    50% { box-shadow: 0 0 60px rgba(100, 180, 60, 0.20), 0 0 100px rgba(100, 180, 60, 0.06); }
-    100% { box-shadow: 0 0 20px rgba(100, 180, 60, 0.05), 0 0 40px rgba(100, 180, 60, 0.02); }
-}
-
-#loadingScreen .logo-icon i {
-    width: 44px;
-    height: 44px;
-    color: #d4e8c0;
-    animation: iconFloat 3s ease-in-out infinite;
-}
-
-@keyframes iconFloat {
-    0%, 100% { transform: translateY(0); }
-    50% { transform: translateY(-4px); }
-}
-
-#loadingScreen .logo-icon::after {
-    content: '';
-    position: absolute;
-    inset: -6px;
-    border-radius: 50%;
-    border: 1px solid rgba(255, 255, 255, 0.04);
-    animation: ringSpin 10s linear infinite;
-}
-
-@keyframes ringSpin {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
-}
-
-#loadingScreen h1 {
-    font-size: 34px;
-    font-weight: 700;
-    letter-spacing: -0.02em;
-    background: linear-gradient(120deg, #f8faf5 25%, #d4e8c0 45%, #f8faf5 65%, #d4e8c0 85%, #f8faf5 100%);
-    background-size: 300% 100%;
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-    animation: shimmerPremium 4s ease-in-out infinite;
-    position: relative;
-}
-
-@keyframes shimmerPremium {
-    0% { background-position: 0% 0%; }
-    100% { background-position: 300% 0%; }
-}
-
-#loadingScreen .sub {
-    font-size: 15px;
-    color: #b3c8a0;
-    margin-top: 6px;
-    font-weight: 400;
-    letter-spacing: 2px;
-}
-
-#loadingScreen .name {
-    font-size: 20px;
-    font-weight: 500;
-    color: #e8f0d8;
-    margin-top: 4px;
-    letter-spacing: 0.5px;
-}
-
-#loadingScreen .tahun-ajaran {
-    font-size: 13px;
-    color: #8aaa78;
-    margin-top: 4px;
-    font-weight: 300;
-    letter-spacing: 3px;
-    padding: 4px 16px;
-    border: 1px solid rgba(255, 255, 255, 0.04);
-    border-radius: 40px;
-    display: inline-block;
-    background: rgba(255, 255, 255, 0.02);
-}
-
-#loadingScreen .loader-wrapper {
-    margin-top: 36px;
-    width: 240px;
-    position: relative;
-}
-
-#loadingScreen .loader-bar {
     width: 100%;
-    height: 4px;
-    background: rgba(255, 255, 255, 0.06);
+    max-width: 340px;
+}
+
+.loading-title {
+    font-size: 26px;
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    color: #f8faf5;
+    margin-bottom: 10px;
+}
+
+.loading-name {
+    font-size: 15px;
+    font-weight: 400;
+    color: #c8d8b8;
+    letter-spacing: 0.3px;
+    margin-bottom: 2px;
+}
+
+.loading-year {
+    font-size: 12px;
+    font-weight: 300;
+    color: #90a880;
+    letter-spacing: 3px;
+    margin-bottom: 42px;
+}
+
+.loading-bar-wrap {
+    width: 100%;
+}
+
+.loading-bar {
+    width: 100%;
+    height: 3px;
+    background: rgba(255, 255, 255, 0.10);
     border-radius: 10px;
     overflow: hidden;
     position: relative;
-    box-shadow: 0 0 30px rgba(100, 180, 60, 0.04);
 }
 
-#loadingScreen .loader-bar .fill {
+.loading-bar-fill {
     height: 100%;
     width: 0%;
-    background: linear-gradient(90deg, #7aaa5a, #b3d48a, #7aaa5a);
-    background-size: 200% 100%;
+    background: #ffffff;
     border-radius: 10px;
-    animation: loadBarPremium 1.8s ease forwards, shimmerBar 2s ease-in-out infinite;
+    transition: width 0.05s linear;
 }
 
-@keyframes loadBarPremium {
-    0% { width: 0%; }
-    100% { width: 100%; }
-}
-
-@keyframes shimmerBar {
-    0% { background-position: 0% 0%; }
-    100% { background-position: 200% 0%; }
-}
-
-#loadingScreen .loader-label {
+.loading-label {
     display: flex;
     justify-content: space-between;
-    margin-top: 8px;
+    margin-top: 10px;
     font-size: 11px;
-    color: #8aaa78;
-    letter-spacing: 1px;
-    font-weight: 300;
+    color: #a8bf98;
+    letter-spacing: 1.5px;
+    font-weight: 400;
+    text-transform: uppercase;
 }
 
-#loadingScreen .loader-label .percent {
+.loading-percent {
+    color: #ffffff;
     font-weight: 500;
-    color: #b3d48a;
-}
-
-#loadingScreen .loader-bar::after {
-    content: '';
-    position: absolute;
-    top: -4px;
-    right: -4px;
-    width: 12px;
-    height: 12px;
-    border-radius: 50%;
-    background: #b3d48a;
-    box-shadow: 0 0 30px rgba(100, 180, 60, 0.30);
-    opacity: 0;
-    animation: glowDot 1.8s ease forwards;
-}
-
-@keyframes glowDot {
-    0% { opacity: 0; }
-    95% { opacity: 0; }
-    100% { opacity: 1; }
 }
 
 /* ============================================================
@@ -286,6 +173,11 @@ body {
     -webkit-text-fill-color: transparent;
     background-clip: text;
     animation: shimmerPremium 4s ease-in-out infinite;
+}
+
+@keyframes shimmerPremium {
+    0% { background-position: 0% 0%; }
+    100% { background-position: 300% 0%; }
 }
 
 .header-top {
@@ -1158,7 +1050,6 @@ tr:last-child td {
     width: 100%;
 }
 
-/* --- PEMISAH --- */
 .rekap-divider {
     display: flex;
     align-items: center;
@@ -1179,9 +1070,6 @@ tr:last-child td {
     );
 }
 
-/* ============================================================
-   AREA BAWAH — 2 CARD SUCCESS & PENDING
-   ============================================================ */
 .card-grid-salary {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -1237,31 +1125,6 @@ tr:last-child td {
     transform: translateY(-2px) scale(0.98);
 }
 
-.salary-entry-icon {
-    width: 52px;
-    height: 52px;
-    border-radius: 50%;
-    background: linear-gradient(145deg, #e8f0d8, #d4e8c0);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: #3a5a2a;
-    transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
-    box-shadow: inset 0 1px 2px rgba(255, 255, 255, 0.8);
-}
-
-.salary-entry-card:hover .salary-entry-icon {
-    background: linear-gradient(145deg, #5a7a42, #3a5a2a);
-    color: #f8faf5;
-    transform: scale(1.08) rotate(-3deg);
-    box-shadow: 0 8px 20px -6px rgba(74, 106, 58, 0.50);
-}
-
-.salary-entry-icon i {
-    width: 24px;
-    height: 24px;
-}
-
 .salary-entry-title {
     font-size: 16px;
     font-weight: 600;
@@ -1297,19 +1160,16 @@ tr:last-child td {
     .profile-modal-box { padding: 28px 20px 20px; margin: 12px; }
     .profile-modal-avatar { width: 72px; height: 72px; }
     .profile-modal-name { font-size: 20px; }
-    #loadingScreen h1 { font-size: 28px; }
-    #loadingScreen .loader-wrapper { width: 180px; }
     .go-top { bottom: 18px; right: 18px; width: 42px; height: 42px; }
-    #loadingScreen .logo-icon { width: 72px; height: 72px; }
-    #loadingScreen .logo-icon i { width: 36px; height: 36px; }
     .status-badge { font-size: 11px; padding: 2px 10px; min-width: 50px; }
 
-    /* Tab Rekap responsive */
+    .loading-title { font-size: 22px; }
+    .loading-name { font-size: 14px; }
+    .loading-year { font-size: 11px; letter-spacing: 2px; }
+
     .rekap-divider { margin: 24px 0 20px; }
     .card-grid-salary { gap: 10px; }
     .salary-entry-card { padding: 22px 14px; border-radius: 18px; }
-    .salary-entry-icon { width: 44px; height: 44px; }
-    .salary-entry-icon i { width: 20px; height: 20px; }
     .salary-entry-title { font-size: 14px; }
     .salary-entry-desc { font-size: 11px; }
 }
@@ -1334,13 +1194,12 @@ tr:last-child td {
     .profile-modal-avatar { width: 64px; height: 64px; }
     .profile-modal-name { font-size: 18px; }
     .go-top { bottom: 14px; right: 14px; width: 38px; height: 38px; }
-    #loadingScreen h1 { font-size: 24px; }
-    #loadingScreen .loader-wrapper { width: 150px; }
-    #loadingScreen .logo-icon { width: 64px; height: 64px; }
-    #loadingScreen .logo-icon i { width: 32px; height: 32px; }
     .status-badge { font-size: 10px; padding: 2px 8px; min-width: 40px; }
 
-    /* Tab Rekap responsive */
+    .loading-title { font-size: 19px; }
+    .loading-name { font-size: 13px; }
+    .loading-year { font-size: 10px; letter-spacing: 1.5px; }
+
     .salary-entry-card { padding: 18px 10px; }
     .salary-entry-title { font-size: 13px; }
     .salary-entry-desc { display: none; }
@@ -1360,17 +1219,14 @@ tr:last-child td {
     .go-top { width: 54px; height: 54px; }
     .modal-box { padding: 32px 28px 28px; max-width: 460px; }
     .profile-modal-box { padding: 40px 32px 32px; max-width: 440px; }
-    #loadingScreen .loader-wrapper { width: 300px; }
-    #loadingScreen h1 { font-size: 40px; }
-    #loadingScreen .logo-icon { width: 100px; height: 100px; }
-    #loadingScreen .logo-icon i { width: 48px; height: 48px; }
     .status-badge { font-size: 13px; padding: 4px 16px; min-width: 70px; }
 
-    /* Tab Rekap responsive */
+    .loading-title { font-size: 32px; }
+    .loading-name { font-size: 17px; }
+    .loading-year { font-size: 13px; letter-spacing: 3.5px; }
+
     .rekap-divider { margin: 40px 0 34px; }
     .salary-entry-card { padding: 36px 28px; border-radius: 26px; }
-    .salary-entry-icon { width: 60px; height: 60px; }
-    .salary-entry-icon i { width: 28px; height: 28px; }
     .salary-entry-title { font-size: 18px; }
     .salary-entry-desc { font-size: 13px; }
 }

@@ -3,19 +3,73 @@
 // ============================================================
 
 // ============================================================
-// LOADING SCREEN - 2 detik
+// LOADING SCREEN — 1.2 detik, hanya pertama per sesi
 // ============================================================
 const loadingScreen = document.getElementById('loadingScreen');
 const dashboard = document.getElementById('dashboard');
+const loadingFill = document.getElementById('loadingFill');
+const loadingPercent = document.getElementById('loadingPercent');
 
-setTimeout(() => {
+const LOADING_DURATION = 1200; // 1.2 detik
+const SESSION_KEY = 'siaq_loaded';
+const TAB_KEY = 'siaq_last_tab';
+
+function hideLoadingScreen(skipAnim = false) {
+    if (skipAnim) {
+        loadingScreen.style.display = 'none';
+        dashboard.classList.add('show');
+        return;
+    }
     loadingScreen.classList.add('hide');
     dashboard.classList.add('show');
     setTimeout(() => {
         loadingScreen.style.display = 'none';
-    }, 600);
-    if (typeof lucide !== 'undefined') lucide.createIcons();
-}, 2000);
+    }, 500);
+}
+
+function runLoadingAnimation() {
+    const startTime = performance.now();
+
+    function tick(now) {
+        const elapsed = now - startTime;
+        let percent = (elapsed / LOADING_DURATION) * 100;
+
+        if (percent >= 100) {
+            percent = 100;
+            loadingFill.style.width = '100%';
+            loadingPercent.textContent = '100%';
+
+            setTimeout(() => {
+                hideLoadingScreen(false);
+                sessionStorage.setItem(SESSION_KEY, '1');
+            }, 80);
+            return;
+        }
+
+        // Persen presisi (satu angka di belakang koma kalau perlu)
+        const display = Math.floor(percent);
+        loadingFill.style.width = percent + '%';
+        loadingPercent.textContent = display + '%';
+
+        requestAnimationFrame(tick);
+    }
+
+    requestAnimationFrame(tick);
+}
+
+(function initLoading() {
+    const sudahLoad = sessionStorage.getItem(SESSION_KEY);
+
+    if (sudahLoad) {
+        // Sudah pernah buka di sesi ini → skip loading
+        loadingScreen.style.display = 'none';
+        dashboard.classList.add('show');
+        if (typeof lucide !== 'undefined') lucide.createIcons();
+    } else {
+        // Pertama kali / hard restart → animasi loading 1.2 detik
+        runLoadingAnimation();
+    }
+})();
 
 // ============================================================
 // KONFIG
@@ -142,12 +196,12 @@ document.addEventListener('keydown', (e) => {
 // ============================================================
 function openModalRekap(data) {
     const periode = data.PERIODE || '-';
-    
+
     const regSukses = parseFloat(String(data['REGULER SUCCESS']).replace(/[^0-9.]/g, '')) || 0;
     const regPending = parseFloat(String(data['REGULER PENDING']).replace(/[^0-9.]/g, '')) || 0;
     const clubSukses = parseFloat(String(data['CLUB SUCCESS']).replace(/[^0-9.]/g, '')) || 0;
     const clubPending = parseFloat(String(data['CLUB PENDING']).replace(/[^0-9.]/g, '')) || 0;
-    
+
     const feeSukses = parseFloat(String(data['FEE SUCCESS']).replace(/[^0-9.]/g, '')) || 0;
     const feePending = parseFloat(String(data['FEE PENDING']).replace(/[^0-9.]/g, '')) || 0;
 
@@ -517,6 +571,10 @@ function renderRekap(rekap) {
 // ============================================================
 function switchTab(tab) {
     currentTab = tab;
+
+    // Simpan tab terakhir ke sessionStorage (untuk restore saat back)
+    try { sessionStorage.setItem(TAB_KEY, tab); } catch (e) {}
+
     semuaContent.style.display = 'none';
     regulerContent.style.display = 'none';
     clubContent.style.display = 'none';
@@ -569,7 +627,12 @@ async function init() {
         emptyReguler.style.display = 'block';
         emptyClub.style.display = 'block';
 
-        switchTab('semua');
+        // Restore tab terakhir kalau ada (misal back dari salary)
+        const lastTab = sessionStorage.getItem(TAB_KEY);
+        const validTabs = ['semua', 'reguler', 'club', 'rekap'];
+        const startTab = (lastTab && validTabs.includes(lastTab)) ? lastTab : 'semua';
+
+        switchTab(startTab);
     } catch (err) {
         document.querySelectorAll('tbody').forEach(t => {
             t.innerHTML =

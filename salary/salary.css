@@ -1,7 +1,18 @@
 /* ============================================================
    salary.css — Halaman Salary (Success & Pending)
-   Premium & Smooth Edition
+   Optimized & Smooth Edition
    ============================================================ */
+
+/* ============================================================
+   FONT — Geist Variable (Lokal)
+   ============================================================ */
+@font-face {
+    font-family: 'Geist';
+    src: url('../fonts/Geist%5Bwght%5D.woff2') format('woff2-variations');
+    font-weight: 100 900;
+    font-style: normal;
+    font-display: swap;
+}
 
 /* ===== BASE ===== */
 * {
@@ -11,7 +22,7 @@
 }
 
 body {
-    font-family: 'Inter', -apple-system, system-ui, sans-serif;
+    font-family: 'Geist', -apple-system, system-ui, sans-serif;
     background: #f0f2f5;
     color: #0b162b;
     min-height: 100vh;
@@ -69,7 +80,7 @@ body {
     align-items: center;
     justify-content: center;
     cursor: pointer;
-    transition: all 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+    transition: background 0.25s ease, transform 0.25s ease;
     flex-shrink: 0;
     z-index: 1;
     -webkit-tap-highlight-color: transparent;
@@ -93,39 +104,20 @@ body {
     font-size: 20px;
     font-weight: 600;
     letter-spacing: -0.02em;
-    background: linear-gradient(120deg, #f8faf5 25%, #d4e8c0 45%, #f8faf5 65%, #d4e8c0 85%, #f8faf5 100%);
-    background-size: 300% 100%;
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-    animation: shimmerPremium 4s ease-in-out infinite;
+    color: #f8faf5;
     z-index: 1;
-}
-
-@keyframes shimmerPremium {
-    0% { background-position: 0% 0%; }
-    100% { background-position: 300% 0%; }
 }
 
 /* ============================================================
    VIEW TRANSITIONS
    ============================================================ */
 .view-fade-in {
-    animation: viewFadeIn 0.4s cubic-bezier(0.16, 1, 0.3, 1) both;
-}
-
-.view-fade-out {
-    animation: viewFadeOut 0.2s ease both;
+    animation: viewFadeIn 0.35s cubic-bezier(0.16, 1, 0.3, 1) both;
 }
 
 @keyframes viewFadeIn {
-    from { opacity: 0; transform: translateY(12px); }
+    from { opacity: 0; transform: translateY(10px); }
     to   { opacity: 1; transform: translateY(0); }
-}
-
-@keyframes viewFadeOut {
-    from { opacity: 1; transform: translateY(0); }
-    to   { opacity: 0; transform: translateY(-8px); }
 }
 
 /* ============================================================
@@ -139,15 +131,15 @@ body {
 }
 
 .salary-card {
-    background: rgba(255, 255, 255, 0.75);
-    backdrop-filter: blur(8px);
-    -webkit-backdrop-filter: blur(8px);
+    background: #ffffff;
     border: 1px solid rgba(180, 195, 160, 0.40);
     border-radius: 24px;
     padding: 32px 20px;
     text-align: center;
     cursor: pointer;
-    transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+    transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1),
+                box-shadow 0.3s ease,
+                border-color 0.3s ease;
     box-shadow: 0 4px 16px rgba(0, 0, 0, 0.03);
     display: flex;
     flex-direction: column;
@@ -158,25 +150,12 @@ body {
     -webkit-tap-highlight-color: transparent;
 }
 
-.salary-card::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(145deg, rgba(90, 122, 66, 0.04), rgba(90, 122, 66, 0.00));
-    opacity: 0;
-    transition: opacity 0.35s ease;
-    pointer-events: none;
-}
-
-.salary-card:hover::before { opacity: 1; }
-
 .salary-card:hover {
     transform: translateY(-6px);
     border-color: rgba(74, 106, 58, 0.50);
     box-shadow:
         0 20px 48px -18px rgba(74, 106, 58, 0.40),
         0 4px 12px rgba(0, 0, 0, 0.04);
-    background: rgba(255, 255, 255, 0.95);
 }
 
 .salary-card:active {
@@ -192,7 +171,9 @@ body {
     align-items: center;
     justify-content: center;
     color: #3a5a2a;
-    transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+    transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1),
+                background 0.3s ease,
+                color 0.3s ease;
     box-shadow: inset 0 1px 2px rgba(255, 255, 255, 0.8);
 }
 
@@ -200,7 +181,6 @@ body {
     background: linear-gradient(145deg, #5a7a42, #3a5a2a);
     color: #f8faf5;
     transform: scale(1.08) rotate(-3deg);
-    box-shadow: 0 8px 20px -6px rgba(74, 106, 58, 0.50);
 }
 
 .salary-card-icon i {
@@ -219,22 +199,6 @@ body {
     font-size: 12px;
     color: #6a7f5a;
     font-weight: 400;
-}
-
-/* ============================================================
-   LOADING SKELETON
-   ============================================================ */
-#viewHome.is-loading {
-    pointer-events: none;
-}
-
-#viewHome.is-loading .salary-card {
-    animation: skeletonPulse 1.4s ease-in-out infinite;
-}
-
-@keyframes skeletonPulse {
-    0%, 100% { opacity: 0.55; }
-    50%      { opacity: 0.85; }
 }
 
 /* ============================================================
@@ -293,12 +257,10 @@ body {
    ============================================================ */
 .table-wrap {
     border-radius: 22px;
-    background: rgba(255, 255, 255, 0.62);
-    backdrop-filter: blur(8px);
-    -webkit-backdrop-filter: blur(8px);
-    border: 1px solid rgba(255, 255, 255, 0.50);
+    background: #ffffff;
+    border: 1px solid rgba(180, 195, 160, 0.30);
     overflow: hidden;
-    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.02);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.03);
 }
 
 .table-scroll {
@@ -315,7 +277,7 @@ table {
 }
 
 thead {
-    background: rgba(245, 248, 253, 0.5);
+    background: #f7faf4;
     border-bottom: 1px solid rgba(0, 0, 0, 0.04);
 }
 
@@ -428,8 +390,6 @@ tr:last-child td { border-bottom: none; }
     position: fixed;
     inset: 0;
     background: rgba(11, 22, 43, 0.50);
-    backdrop-filter: blur(6px);
-    -webkit-backdrop-filter: blur(6px);
     z-index: 2000;
     display: flex;
     align-items: center;
@@ -437,7 +397,7 @@ tr:last-child td { border-bottom: none; }
     padding: 20px;
     opacity: 0;
     visibility: hidden;
-    transition: opacity 0.3s ease, visibility 0.3s ease;
+    transition: opacity 0.25s ease, visibility 0.25s ease;
 }
 
 .modal-overlay.open {
@@ -459,7 +419,8 @@ tr:last-child td { border-bottom: none; }
     box-shadow: 0 24px 64px -16px rgba(0, 0, 0, 0.35);
     transform: scale(0.95) translateY(12px);
     opacity: 0;
-    transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+    transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1),
+                opacity 0.3s ease;
     position: relative;
     max-height: 90vh;
     overflow-y: auto;
@@ -473,7 +434,7 @@ tr:last-child td { border-bottom: none; }
     border: none;
     cursor: pointer;
     color: #94a3b8;
-    transition: color 0.2s ease, transform 0.3s ease;
+    transition: color 0.2s ease, transform 0.3s ease, background 0.2s ease;
     padding: 6px;
     display: flex;
     align-items: center;
@@ -608,7 +569,7 @@ tr:last-child td { border-bottom: none; }
     font-size: 14px;
     font-weight: 600;
     cursor: pointer;
-    transition: all 0.25s ease;
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
     box-shadow: 0 8px 20px -8px rgba(40, 70, 30, 0.40);
     -webkit-tap-highlight-color: transparent;
 }

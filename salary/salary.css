@@ -158,7 +158,7 @@ body {
 }
 
 /* ============================================================
-   VIEW HOME — 2 CARD
+   VIEW HOME — 2 CARD (versi ringan & elegan)
    ============================================================ */
 .card-grid {
     display: grid;
@@ -168,47 +168,59 @@ body {
 }
 
 .salary-card {
-    background: #ffffff;
-    border: 1px solid rgba(180, 195, 160, 0.40);
-    border-radius: 24px;
-    padding: 40px 20px;
+    position: relative;
+    overflow: hidden;
+    background:
+        linear-gradient(160deg, rgba(122, 154, 90, 0.10) 0%, rgba(122, 154, 90, 0.00) 55%),
+        #ffffff;
+    border: 1px solid rgba(180, 195, 160, 0.45);
+    border-radius: 22px;
+    padding: 36px 20px;
     text-align: center;
     cursor: pointer;
-    transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1),
-                box-shadow 0.3s ease,
-                border-color 0.3s ease;
-    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.03);
+    transition: transform 0.25s ease,
+                box-shadow 0.25s ease,
+                border-color 0.25s ease,
+                background 0.25s ease;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.03);
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     gap: 6px;
     -webkit-tap-highlight-color: transparent;
+    will-change: transform;
 }
 
 .salary-card:hover {
-    transform: translateY(-6px);
-    border-color: rgba(74, 106, 58, 0.50);
-    box-shadow:
-        0 20px 48px -18px rgba(74, 106, 58, 0.40),
-        0 4px 12px rgba(0, 0, 0, 0.04);
+    transform: translateY(-3px);
+    border-color: rgba(90, 122, 66, 0.45);
+    background:
+        linear-gradient(160deg, rgba(122, 154, 90, 0.14) 0%, rgba(122, 154, 90, 0.00) 55%),
+        #ffffff;
+    box-shadow: 0 12px 28px -14px rgba(58, 90, 42, 0.35);
 }
 
 .salary-card:active {
-    transform: translateY(-3px) scale(0.98);
+    transform: translateY(-1px) scale(0.995);
+    transition-duration: 0.1s;
 }
 
 .salary-card-title {
-    font-size: 20px;
+    font-size: 18px;
     font-weight: 600;
     color: #2d4a1e;
     letter-spacing: -0.01em;
+    position: relative;
+    z-index: 1;
 }
 
 .salary-card-desc {
     font-size: 12px;
     color: #6a7f5a;
     font-weight: 400;
+    position: relative;
+    z-index: 1;
 }
 
 /* ============================================================

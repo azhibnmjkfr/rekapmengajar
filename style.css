@@ -1076,49 +1076,80 @@ tr:last-child td {
     gap: 14px;
 }
 
+/* ============================================================
+   SALARY ENTRY CARD — HIJAU TEMA, ORNAMEN WATERMARK
+   ============================================================ */
 .salary-entry-card {
-    background: rgba(255, 255, 255, 0.75);
-    backdrop-filter: blur(8px);
-    -webkit-backdrop-filter: blur(8px);
-    border: 1px solid rgba(180, 195, 160, 0.40);
+    position: relative;
+    overflow: hidden;
+    isolation: isolate;
+    background: linear-gradient(145deg, #5a7a42 0%, #7a9a5a 100%);
+    border: 1px solid rgba(255, 255, 255, 0.10);
     border-radius: 22px;
     padding: 28px 20px;
     text-align: center;
     cursor: pointer;
-    transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
-    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.03);
+    transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+                box-shadow 0.35s ease,
+                background 0.35s ease;
+    box-shadow:
+        0 8px 24px -12px rgba(58, 90, 42, 0.35),
+        inset 0 1px 0 rgba(255, 255, 255, 0.10);
     display: flex;
     flex-direction: column;
     align-items: center;
     gap: 10px;
-    position: relative;
-    overflow: hidden;
     text-decoration: none;
     color: inherit;
     -webkit-tap-highlight-color: transparent;
 }
 
+/* Ornamen watermark — di belakang teks */
 .salary-entry-card::before {
     content: '';
     position: absolute;
     inset: 0;
-    background: linear-gradient(145deg, rgba(90, 122, 66, 0.04), rgba(90, 122, 66, 0.00));
+    z-index: -1;
+    pointer-events: none;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 85% auto;
+    opacity: 0.14;
+}
+
+/* Card Success (anak pertama) — ceklist */
+.salary-entry-card:first-child::before {
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><path d='M12 54 L38 78 L88 22' fill='none' stroke='%23ffffff' stroke-width='8' stroke-linecap='round' stroke-linejoin='round'/></svg>");
+}
+
+/* Card Pending (anak kedua) — palang / silang */
+.salary-entry-card:last-child::before {
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><path d='M22 22 L78 78 M78 22 L22 78' fill='none' stroke='%23ffffff' stroke-width='8' stroke-linecap='round' stroke-linejoin='round'/></svg>");
+}
+
+/* Overlay gradient halus saat hover */
+.salary-entry-card::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    background: radial-gradient(circle at 30% 20%, rgba(255, 255, 255, 0.10) 0%, transparent 60%);
     opacity: 0;
-    transition: opacity 0.35s ease;
+    transition: opacity 0.4s ease;
     pointer-events: none;
 }
 
-.salary-entry-card:hover::before {
+.salary-entry-card:hover::after {
     opacity: 1;
 }
 
 .salary-entry-card:hover {
     transform: translateY(-5px);
-    border-color: rgba(74, 106, 58, 0.50);
+    background: linear-gradient(145deg, #648449 0%, #85a563 100%);
     box-shadow:
-        0 20px 48px -18px rgba(74, 106, 58, 0.40),
-        0 4px 12px rgba(0, 0, 0, 0.04);
-    background: rgba(255, 255, 255, 0.95);
+        0 22px 48px -18px rgba(58, 90, 42, 0.50),
+        0 4px 12px rgba(0, 0, 0, 0.04),
+        inset 0 1px 0 rgba(255, 255, 255, 0.18);
 }
 
 .salary-entry-card:active {
@@ -1128,15 +1159,19 @@ tr:last-child td {
 .salary-entry-title {
     font-size: 16px;
     font-weight: 600;
-    color: #2d4a1e;
+    color: #ffffff;
     letter-spacing: -0.01em;
+    position: relative;
+    z-index: 1;
 }
 
 .salary-entry-desc {
     font-size: 12px;
-    color: #6a7f5a;
+    color: rgba(255, 255, 255, 0.85);
     font-weight: 400;
     line-height: 1.4;
+    position: relative;
+    z-index: 1;
 }
 
 /* ============================================================
@@ -1170,6 +1205,7 @@ tr:last-child td {
     .rekap-divider { margin: 24px 0 20px; }
     .card-grid-salary { gap: 10px; }
     .salary-entry-card { padding: 22px 14px; border-radius: 18px; }
+    .salary-entry-card::before { background-size: 70% auto; }
     .salary-entry-title { font-size: 14px; }
     .salary-entry-desc { font-size: 11px; }
 }
@@ -1201,6 +1237,7 @@ tr:last-child td {
     .loading-year { font-size: 10px; letter-spacing: 1.5px; }
 
     .salary-entry-card { padding: 18px 10px; }
+    .salary-entry-card::before { background-size: 60% auto; }
     .salary-entry-title { font-size: 13px; }
     .salary-entry-desc { display: none; }
 }
